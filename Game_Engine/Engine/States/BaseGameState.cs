@@ -33,6 +33,8 @@ namespace Game_Engine.Engine.States
             _contentManager.Unload();
         }
         public abstract void Update();
+
+        public abstract void HandleCollision();
         public abstract void LoadContent();
         protected void AddGameObject(BaseGameObject gameObject)
         {
@@ -46,7 +48,7 @@ namespace Game_Engine.Engine.States
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            _gameObjectsList.OrderBy(o => o.ZIndex);
+            _gameObjectsList.OrderBy(o => o.zIndex);
             foreach (var gameObject in _gameObjectsList)
             {
                 gameObject.Draw(_spriteBatch);

@@ -54,7 +54,6 @@ namespace Game_Engine
 
         protected override void Update(GameTime gameTime)
         {
-            
             _currentGameState.Update();
 
             base.Update(gameTime);

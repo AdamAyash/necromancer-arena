@@ -8,7 +8,7 @@ namespace Game_Engine.Engine.GameObjects
         protected Vector2 _position;
         protected Texture2D _objectTexture;
 
-        public int ZIndex { get; set; }
+        public int zIndex { get; set; }
 
         protected virtual void Update()
         {

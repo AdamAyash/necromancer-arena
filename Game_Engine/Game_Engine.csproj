@@ -19,7 +19,6 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GameObjects\GameplayStateObjects\" />
     <Folder Include="GameObjects\SplashStateObjects\" />
   </ItemGroup>
   <ItemGroup>

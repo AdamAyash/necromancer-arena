@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework.Content;
@@ -9,17 +10,49 @@ namespace Game_Engine.Engine.States
 {
     public abstract class BaseGameState
     {
-        protected List<BaseGameObject> _gameObjectsList;
+        private const string EMPTY_TEXTURE = "Assets/Sprites/Empty";
+        private const string EMPTY_FONT = "Assets/Fonts/Base/BaseFont";
 
+        protected List<BaseGameObject> _gameObjectsList;
         private ContentManager _contentManager;
+        private InputManager _inputManager;
+
+        protected bool _debugMode = false;
         public void Intitialize(ContentManager contentManager)
         {
             _contentManager = contentManager;
             _gameObjectsList = new List<BaseGameObject>();
         }
-        protected Texture2D LoadTexture(string texturename)
+
+        protected InputManager InputManager
         {
-            return _contentManager.Load<Texture2D>(texturename);
+            get
+            {
+                return this._inputManager;
+            }
+        }
+        protected Texture2D LoadTexture(string textureName)
+        {
+            try
+            {
+                return _contentManager.Load<Texture2D>(textureName);
+            }
+            catch (Exception)
+            {
+                return _contentManager.Load<Texture2D>(EMPTY_TEXTURE);
+            }
+        }
+
+        protected SpriteFont LoadSpriteFont(string fontName)
+        {
+            try
+            {
+                return _contentManager.Load<SpriteFont>(fontName);
+            }
+            catch (Exception)
+            {
+                return _contentManager.Load<SpriteFont>(EMPTY_FONT);
+            }
         }
 
         public event EventHandler<BaseGameState> OnStateSwitched;
@@ -32,9 +65,13 @@ namespace Game_Engine.Engine.States
         {
             _contentManager.Unload();
         }
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
 
         public abstract void HandleCollision();
+        protected void  SetInputManager(BaseInputMapper mapper)
+        {
+            _inputManager = new InputManager(mapper);
+        }
         public abstract void LoadContent();
         protected void AddGameObject(BaseGameObject gameObject)
         {

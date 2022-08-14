@@ -1,1 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Player.png","C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/bin/Windows/Assets/Animations/Player/Player.xnb","TextureProcessor","Texture2DContent",244,1365,0.1146021
+"C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/Base/BaseFont.spritefont","C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/bin/Windows/Assets/Fonts/Base/BaseFont.xnb","FontDescriptionProcessor","SpriteFontContent",2005,37922,0.0746509
+"C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/Empty.png","C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/bin/Windows/Assets/Sprites/Empty.xnb","TextureProcessor","Texture2DContent",99,1109,0.121819

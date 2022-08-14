@@ -17,8 +17,8 @@ namespace Game_Engine
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\Content\bin\Windows\";
             IsMouseVisible = true;
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 400;
             _graphics.ApplyChanges();
             SwichToNewState(beginingState);
         }
@@ -54,7 +54,7 @@ namespace Game_Engine
 
         protected override void Update(GameTime gameTime)
         {
-            _currentGameState.Update();
+            _currentGameState.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -63,7 +63,7 @@ namespace Game_Engine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            //_currentGameState.Draw(_spriteBatch);
+            _currentGameState.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

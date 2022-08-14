@@ -8,7 +8,7 @@ namespace Game_Engine
         [STAThread]
         static void Main()
         {
-            using (var game = new Core(new SplashState()))
+            using (var game = new Core(new GameplayState()))
                 game.Run();
         }
     }

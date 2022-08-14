@@ -10,10 +10,8 @@ namespace Game_Engine.Engine.GameObjects
 
         public int zIndex { get; set; }
 
-        protected virtual void Update()
-        {
-
-        }
+        public virtual void Update(GameTime gameTime) { }
+        
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {

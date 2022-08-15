@@ -1,22 +1,24 @@
 ﻿using System;
+using Game_Engine.Engine;
 using Microsoft.Xna.Framework;
 using Game_Engine.Engine.States;
+using System.Collections.Generic;
 using Game_Engine.Engine.GameObjects;
-using Game_Engine.GameObjects.GameplayStateObjects.Player;
 using Microsoft.Xna.Framework.Graphics;
-using Game_Engine.Engine;
+using Game_Engine.GameObjects.GameplayStateObjects.Player;
+using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
 
 namespace Game_Engine.States
 {
     public class GameplayState : BaseGameState
     {
         private const string PLAYER_TEXTURE_NAME = "Assets/Animations/Player/Player";
-
+        private List<Projectile> _projectilesList;
         private Player _player;
 
         public override void HandleCollision()
         {
-            InputManager.GetCommands(cmd =>
+            InputManager.GetKeyboardCommands(cmd =>
             {
                 if (cmd is GameplayInputCommands.PlayerMoveLeftCommand)
                 {
@@ -35,14 +37,31 @@ namespace Game_Engine.States
                     _player.PlayerMoveDown();
                 }
             });
+
+            InputManager.GetMouseCommands(cmd =>
+            {
+                if (cmd is GameplayInputCommands.PlayerShootCommand)
+                {
+                    var leftMouseButton = (GameplayInputCommands.PlayerShootCommand)cmd;
+                    ShootProjectile(leftMouseButton.MousePosition);
+                }
+            });
         }
 
         public override void LoadContent()
         {
             SetInputManager(new GameplayInputMapper());
             _player = new Player(LoadTexture(PLAYER_TEXTURE_NAME));
+            _projectilesList = new List<Projectile>();
+
             AddGameObject(_player);
         }
+
+        protected void ShootProjectile(Vector2 mousePosition)
+        {
+            
+        }
+
 
         public override void Update(GameTime gameTime)
         {

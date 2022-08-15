@@ -1,4 +1,5 @@
 ﻿using Game_Engine.Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
@@ -26,6 +27,18 @@ namespace Game_Engine.States
             {
                 commands.Add(new GameplayInputCommands.PlayerMoveDownCommand());
             }
+            return commands;
+        }
+
+        public override IEnumerable<BaseInputCommand> GetMouseState(MouseState keyboardState)
+        {
+            var commands = new List<BaseInputCommand>();
+
+            if (keyboardState.LeftButton == ButtonState.Pressed)
+            {
+                commands.Add(new GameplayInputCommands.PlayerShootCommand(keyboardState));
+            }
+
             return commands;
         }
     }

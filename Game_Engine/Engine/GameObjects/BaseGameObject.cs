@@ -7,6 +7,7 @@ namespace Game_Engine.Engine.GameObjects
     {
         protected Vector2 _position;
         protected Texture2D _objectTexture;
+        protected float _angle;
 
         public int zIndex { get; set; }
 

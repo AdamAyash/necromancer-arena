@@ -6,7 +6,7 @@ namespace Game_Engine.States
 {
     public class SplashState : BaseGameState
     {
-        public override void HandleCollision()
+        public override void HandleCollision(GameTime gameTime)
         {
 
         }

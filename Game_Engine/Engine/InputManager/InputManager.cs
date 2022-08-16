@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,9 +11,18 @@ namespace Game_Engine.Engine
         private IEnumerable<BaseInputCommand> _commands;
         private KeyboardState keyboardState;
         private MouseState mouseState;
+
         public InputManager(BaseInputMapper mapper)
         {
             _mapper = mapper;
+        }
+
+        public float MouseX
+        {
+            get
+            {
+                return mouseState.X;
+            }
         }
 
         public void GetKeyboardCommands(Action<BaseInputCommand> commandAction)
@@ -24,10 +34,13 @@ namespace Game_Engine.Engine
                 commandAction(command);
             }
         }
+        public void Update()
+        {
+            mouseState = Mouse.GetState();
+        }
 
         public void GetMouseCommands(Action<BaseInputCommand> commandAction)
         {
-            mouseState = Mouse.GetState();
             _commands = _mapper.GetMouseState(mouseState);
             foreach (var command in _commands)
             {

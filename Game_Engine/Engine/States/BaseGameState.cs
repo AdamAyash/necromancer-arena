@@ -37,7 +37,11 @@ namespace Game_Engine.Engine.States
             {
                 return _contentManager.Load<Texture2D>(textureName);
             }
-            catch (Exception)
+            catch (ContentLoadException)
+            {
+                return _contentManager.Load<Texture2D>(EMPTY_TEXTURE);
+            }
+            catch (ArgumentNullException)
             {
                 return _contentManager.Load<Texture2D>(EMPTY_TEXTURE);
             }
@@ -49,7 +53,11 @@ namespace Game_Engine.Engine.States
             {
                 return _contentManager.Load<SpriteFont>(fontName);
             }
-            catch (Exception)
+            catch (ContentLoadException)
+            {
+                return _contentManager.Load<SpriteFont>(EMPTY_FONT);
+            }
+            catch (ArgumentNullException)
             {
                 return _contentManager.Load<SpriteFont>(EMPTY_FONT);
             }
@@ -67,7 +75,7 @@ namespace Game_Engine.Engine.States
         }
         public abstract void Update(GameTime gameTime);
 
-        public abstract void HandleCollision();
+        public abstract void HandleCollision(GameTime gameTime);
         protected void  SetInputManager(BaseInputMapper mapper)
         {
             _inputManager = new InputManager(mapper);

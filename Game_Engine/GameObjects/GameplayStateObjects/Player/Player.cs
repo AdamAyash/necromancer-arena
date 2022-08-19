@@ -17,9 +17,10 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 
         public SpriteEffects PlayerOrientation { private get; set; }
 
-        public Player()
+        public Player(List<Animation> animationList)
         {
-            Animations = new List<Animation>();
+            Animations = animationList;
+            _currentAnimation = Animations[0];
             _isAlive = true;
             PlayerOrientation = SpriteEffects.None;
         }
@@ -44,7 +45,6 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 
         public override void Update(GameTime gameTime)
         {
-            _currentAnimation = Animations[0];
             _currentAnimation.Update(gameTime);
         }
 

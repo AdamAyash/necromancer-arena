@@ -19,9 +19,11 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Assets\Animations\Enemies\Demon\" />
     <Folder Include="Content\Assets\Animations\Player\" />
     <Folder Include="Content\Assets\Animations\Player\Idle\" />
     <Folder Include="Content\Assets\Animations\Player\Run\" />
+    <Folder Include="Content\Assets\Animations\Player\Spells\" />
     <Folder Include="Content\Assets\Sprites\" />
     <Folder Include="GameObjects\SplashStateObjects\" />
   </ItemGroup>

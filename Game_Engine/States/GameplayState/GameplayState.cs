@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using Game_Engine.Engine.Animation;
 using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
+using Game_Engine.Engine.GameObjects.Debug;
 using Game_Engine.GameObjects.GameplayStateObjects.Player;
+using Game_Engine.GameObjects.GameplayStateObjects.Enemies;
 using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
 
 namespace Game_Engine.States
@@ -14,14 +16,25 @@ namespace Game_Engine.States
     public class GameplayState : BaseGameState
     {
         private const string PLAYER_IDLE_ANIMATION = "Assets/Animations/Player/Idle/Player_Idle";
+        private const string PROJECTILE_ANIMATION = "Assets/Animations/Player/Spells/Fireball_Spell";
+
+        private const string DEMON_RUN_ANIMATION = "Assets/Animations/Enemies/Demon/Demon_Run";
+
+        private Animation _projectileAnimation;
+
+        private List<Animation> _playerAnimationList;
+        private List<Animation> _demonAnimationList;
+
 
         private List<Projectile> _projectilesList;
-        private Player _player;
+        private List<AI> _enemyList;
 
+        private Player _player;
         private TimeSpan playerShootCooldown = TimeSpan.FromSeconds(1.0f);
         private TimeSpan lastShotAt;
 
-        private Texture2D projectileTexture;
+        private Debug_Details _debugDetails;
+
         public override void HandleCollision(GameTime gameTime)
         {
             InputManager.GetKeyboardCommands(cmd =>
@@ -49,27 +62,47 @@ namespace Game_Engine.States
                 if (cmd is GameplayInputCommands.PlayerShootCommand)
                 {
                     var leftMouseButton = (GameplayInputCommands.PlayerShootCommand)cmd;
-                    ShootProjectile(leftMouseButton.MousePosition,gameTime);
+                    ShootProjectile(leftMouseButton.MousePosition, gameTime);
                 }
             });
         }
         public override void LoadContent()
         {
-            SetInputManager(new GameplayInputMapper());
-            _player = new Player();
-            _player.Animations.Add(new Animation(LoadTexture(PLAYER_IDLE_ANIMATION), 4, 8));
+            _debugMode = true;
 
-            _projectilesList = new List<Projectile>();
-            projectileTexture = LoadTexture(string.Empty);
+            if (_debugMode)
+            {
+                _debugDetails = new Debug_Details(LoadSpriteFont(string.Empty));
+                AddGameObject(_debugDetails);
+            }
+            _playerAnimationList = new List<Animation>();
+            _playerAnimationList.Add(new Animation(LoadTexture(PLAYER_IDLE_ANIMATION), 4, 8));
+            _player = new Player(_playerAnimationList);
 
             AddGameObject(_player);
+
+            _projectilesList = new List<Projectile>();
+            _projectileAnimation = new Animation(LoadTexture(PROJECTILE_ANIMATION), 2, 1);
+
+            _enemyList = new List<AI>();
+
+            _demonAnimationList = new List<Animation>();
+            _demonAnimationList.Add(new Animation(LoadTexture(DEMON_RUN_ANIMATION), 4, 8));
+            var enemy = new Demon_Enemy(_demonAnimationList);
+            _enemyList.Add(enemy);
+            AddGameObject(enemy);
+
+
+            SetInputManager(new GameplayInputMapper());
+
+
         }
 
-        protected void ShootProjectile(Vector2 mousePosition,GameTime gameTime)
+        protected void ShootProjectile(Vector2 mousePosition, GameTime gameTime)
         {
             if (gameTime.TotalGameTime.TotalSeconds - lastShotAt.TotalSeconds >= playerShootCooldown.TotalSeconds)
             {
-                var projectile = new Projectile(projectileTexture, _player.Position, mousePosition);
+                var projectile = new Projectile(_projectileAnimation, _player.Position, mousePosition);
                 _projectilesList.Add(projectile);
                 AddGameObject(projectile);
                 lastShotAt = gameTime.TotalGameTime;
@@ -78,6 +111,10 @@ namespace Game_Engine.States
 
         public override void Update(GameTime gameTime)
         {
+            if (_debugMode)
+            {
+                _debugDetails.Update(gameTime);
+            }
             HandleCollision(gameTime);
             InputManager.Update();
 
@@ -88,6 +125,11 @@ namespace Game_Engine.States
             else
             {
                 _player.PlayerOrientation = SpriteEffects.None;
+            }
+
+            foreach (var enemy in _enemyList)
+            {
+                enemy.Update(gameTime, _player.Position);
             }
 
             foreach (var gameObject in _gameObjectsList)

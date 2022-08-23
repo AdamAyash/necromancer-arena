@@ -25,6 +25,9 @@ namespace Game_Engine.States
         private List<Animation> _playerAnimationList;
         private List<Animation> _demonAnimationList;
 
+        private Wave_System _waveSystem;
+        private List<Wave> _waveList;
+
 
         private List<Projectile> _projectilesList;
         private List<AI> _enemyList;
@@ -35,7 +38,7 @@ namespace Game_Engine.States
 
         private Debug_Details _debugDetails;
 
-        public override void HandleCollision(GameTime gameTime)
+        public override void HandleInput(GameTime gameTime)
         {
             InputManager.GetKeyboardCommands(cmd =>
             {
@@ -68,7 +71,7 @@ namespace Game_Engine.States
         }
         public override void LoadContent()
         {
-            _debugMode = true;
+            _debugMode = false;
 
             if (_debugMode)
             {
@@ -88,16 +91,62 @@ namespace Game_Engine.States
 
             _demonAnimationList = new List<Animation>();
             _demonAnimationList.Add(new Animation(LoadTexture(DEMON_RUN_ANIMATION), 4, 8));
-            var enemy = new Demon_Enemy(_demonAnimationList);
-            _enemyList.Add(enemy);
-            AddGameObject(enemy);
 
+            _waveList = new List<Wave>()
+            {
+                new Wave(6)
+            };
+            _waveList[0].EnemyTypesList = new List<(EnemyTypes, int)>
+            {
+                (EnemyTypes.DemonEnemy,3)
+            };
+            _waveSystem = new Wave_System(_waveList);
+            _waveSystem.OnSpawnEnemies += _waveSystem_OnSpawnEnemies;
 
             SetInputManager(new GameplayInputMapper());
 
-
         }
 
+        private void _waveSystem_OnSpawnEnemies(object sender, BaseGameStateEvent e)
+        {
+            if (e is GameplayStateEvents.SpawnDemonEnemy)
+            {
+                var demonEnemy = new Demon_Enemy(_demonAnimationList);
+                _enemyList.Add(demonEnemy);
+                AddGameObject(demonEnemy);
+            }
+        }
+
+        private void DetectCollisions()
+        {
+            var playerEnemyCollision = new AABBCollisionDetection<AI, Player>(_enemyList);
+            var enemyProjectileCollision = new AABBCollisionDetection<Projectile, AI>(_projectilesList);
+
+            playerEnemyCollision.DetectCollision(_player, (enemy, player) =>
+            {
+                player.PlayerHealth -= enemy.Damage;
+            });
+
+
+            enemyProjectileCollision.DetectCircleCollision(_enemyList, (projectile, enemy) =>
+             {
+                 enemy.Health -= projectile.Damage;
+             });
+
+
+            foreach (var pro in _projectilesList)
+            {
+                foreach (var enemy in _enemyList)
+                {
+                    if (pro.CircleColiders[0].Intersects(enemy.BoundingBoxes[0].Rectangle))
+                    {
+                        Console.WriteLine("Collision");
+                        Console.WriteLine(enemy.Health);
+                    }
+                }
+            }
+
+        }
         protected void ShootProjectile(Vector2 mousePosition, GameTime gameTime)
         {
             if (gameTime.TotalGameTime.TotalSeconds - lastShotAt.TotalSeconds >= playerShootCooldown.TotalSeconds)
@@ -115,8 +164,10 @@ namespace Game_Engine.States
             {
                 _debugDetails.Update(gameTime);
             }
-            HandleCollision(gameTime);
+            HandleInput(gameTime);
             InputManager.Update();
+            DetectCollisions();
+            _waveSystem.Update(gameTime);
 
             if (InputManager.MouseX < _player.Position.X)
             {

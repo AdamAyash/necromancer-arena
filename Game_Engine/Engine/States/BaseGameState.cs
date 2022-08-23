@@ -75,7 +75,7 @@ namespace Game_Engine.Engine.States
         }
         public abstract void Update(GameTime gameTime);
 
-        public abstract void HandleCollision(GameTime gameTime);
+        public abstract void HandleInput(GameTime gameTime);
         protected void  SetInputManager(BaseInputMapper mapper)
         {
             _inputManager = new InputManager(mapper);
@@ -97,6 +97,10 @@ namespace Game_Engine.Engine.States
             foreach (var gameObject in _gameObjectsList)
             {
                 gameObject.Draw(_spriteBatch);
+                if (_debugMode)
+                {
+                    gameObject.RenderBoundingBoxes(_spriteBatch);
+                }
             }
         }
     }

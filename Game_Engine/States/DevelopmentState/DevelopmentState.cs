@@ -5,7 +5,7 @@ namespace Game_Engine.States.DevelopmentState
 {
     public class DevelopmentState : BaseGameState
     {
-        public override void HandleCollision(GameTime gameTime)
+        public override void HandleInput(GameTime gameTime)
         {
             throw new System.NotImplementedException();
 

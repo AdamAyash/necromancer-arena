@@ -96,7 +96,7 @@ namespace Game_Engine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.SetRenderTarget(_renderTarget);
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightGoldenrodYellow);
             _spriteBatch.Begin();
             _currentGameState.Draw(_spriteBatch);
             _spriteBatch.End();

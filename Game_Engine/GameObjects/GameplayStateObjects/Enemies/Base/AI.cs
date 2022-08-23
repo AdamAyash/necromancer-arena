@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 {
-    public class AI : BaseGameObject
+    public class AI : BaseGameObject, IGameObjectWidthDamage
     {
         protected float _speed;
 
@@ -14,12 +14,16 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
         protected Animation _currentAnimation;
 
         private SpriteEffects _orinetation;
+
+        public int Damage => 10;
+
+        public int Health { get; set; }
         public AI(List<Animation> animations)
         {
             _animations = animations;
         }
 
-        public virtual void Update(GameTime gameTime, Vector2 playerPosition) 
+        public virtual void Update(GameTime gameTime, Vector2 playerPosition)
         {
             if (_position.X > playerPosition.X)
             {
@@ -33,7 +37,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 
         public override void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(_currentAnimation.AnimationTexture, new Rectangle((int)_position.X, (int)_position.Y, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height), _currentAnimation.CurrentFrame, Color.White, _angle,_origin,_orinetation,0f);
+            _spriteBatch.Draw(_currentAnimation.AnimationTexture, new Rectangle((int)_position.X, (int)_position.Y, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height), _currentAnimation.CurrentFrame, Color.White, _angle, _origin, _orinetation, 0f);
         }
     }
 }

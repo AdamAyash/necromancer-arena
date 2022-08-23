@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 {
-    public class Player : BaseGameObject
+    public class Player : BaseGameObject, IGameObjectWidthDamage
     {
         private const float PLAYER_SPEED = 4.5f;
         private bool _isAlive;
@@ -14,8 +14,9 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
         private Animation _currentAnimation;
 
         public List<Animation> Animations { get; set; }
-
+        public int PlayerHealth { get; set; }
         public SpriteEffects PlayerOrientation { private get; set; }
+        public int Damage { get => 10; }
 
         public Player(List<Animation> animationList)
         {
@@ -23,24 +24,26 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
             _currentAnimation = Animations[0];
             _isAlive = true;
             PlayerOrientation = SpriteEffects.None;
+            AddBoundingBoxes(new Engine.GameObjects.BoundingBox(Position, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height));
+            PlayerHealth = 100;
         }
         public void PlayerMoveLeft()
         {
-            _position = new Vector2(_position.X - PLAYER_SPEED, _position.Y);
+            Position = new Vector2(_position.X - PLAYER_SPEED, _position.Y);
         }
 
         public void PlayerMoveRight()
         {
-            _position = new Vector2(_position.X + PLAYER_SPEED, _position.Y);
+            Position = new Vector2(_position.X + PLAYER_SPEED, _position.Y);
         }
         public void PlayerMoveUp()
         {
-            _position = new Vector2(_position.X, _position.Y - PLAYER_SPEED);
+            Position = new Vector2(_position.X, _position.Y - PLAYER_SPEED);
         }
 
         public void PlayerMoveDown()
         {
-            _position = new Vector2(_position.X, _position.Y + PLAYER_SPEED);
+            Position = new Vector2(_position.X, _position.Y + PLAYER_SPEED);
         }
 
         public override void Update(GameTime gameTime)
@@ -50,7 +53,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 
         public override void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(_currentAnimation.AnimationTexture, new Rectangle((int)_position.X, (int)_position.Y,_currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height), _currentAnimation.CurrentFrame, Color.White, _angle, _origin, PlayerOrientation, 0f);
+            _spriteBatch.Draw(_currentAnimation.AnimationTexture, new Rectangle((int)Position.X, (int)Position.Y,_currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height), _currentAnimation.CurrentFrame, Color.White, _angle, _origin, PlayerOrientation, 0f);
         }
     }
 }

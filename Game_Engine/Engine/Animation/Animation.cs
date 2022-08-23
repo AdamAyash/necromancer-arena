@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game_Engine.Engine.Animation
 {
-    public class Animation
+    public struct Animation
     {
         private Rectangle[] _animationFrames;
         private Texture2D _animationTexture;
@@ -14,7 +14,8 @@ namespace Game_Engine.Engine.Animation
 
         private int _frameIndex;
 
-        public int FramePerSecond { set { _timeToUpdate = (1f / value); } }
+        private float _framePerSecond;
+
         public Texture2D AnimationTexture
         {
             get
@@ -39,7 +40,9 @@ namespace Game_Engine.Engine.Animation
             _animationTexture = texture;
             int width = _animationTexture.Width / frames;
             _animationFrames = new Rectangle[frames];
-            FramePerSecond = fps;
+            _framePerSecond = (float)1f / fps;
+            this._timeElapsed = 0;
+            this._timeToUpdate = _framePerSecond;
             for (int i = 0; i < frames; i++)
             {
                 _animationFrames[i] = new Rectangle(i * width, 0, width, _animationTexture.Height);

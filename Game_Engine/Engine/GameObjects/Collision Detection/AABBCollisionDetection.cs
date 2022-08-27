@@ -25,6 +25,17 @@ namespace Game_Engine.Engine.GameObjects
             }
         }
 
+        public void DetectCollision(Action<P, P> collisionhandler)
+        {
+            for (int i = 0; i < _passiveObjects.Count - 1; i++)
+            {
+                if (DetectCollsion(_passiveObjects[i],_passiveObjects[i + 1]))
+                {
+                    collisionhandler(_passiveObjects[i], _passiveObjects[i + 1]);
+                }
+            }
+        }
+
         public void DetectCircleCollision(List<A> activeObjects, Action<P,A> collisionHandler)
         {
             foreach (var passiveObject in _passiveObjects)
@@ -60,6 +71,22 @@ namespace Game_Engine.Engine.GameObjects
             foreach (var bb in passiveObject.BoundingBoxes)
             {
                 foreach (var otherBB in activeObject.BoundingBoxes)
+                {
+                    if (bb.ColdidesWidth(otherBB))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool DetectCollsion(P passiveObject1, P passiveObject2)
+        {
+            foreach (var bb in passiveObject1.BoundingBoxes)
+            {
+                foreach (var otherBB in passiveObject2.BoundingBoxes)
                 {
                     if (bb.ColdidesWidth(otherBB))
                     {

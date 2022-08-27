@@ -48,6 +48,9 @@ namespace Game_Engine.States
                             case EnemyTypes.DemonEnemy:
                                 OnSpawnEnemies.Invoke(EnemyTypes.DemonEnemy, new GameplayStateEvents.SpawnDemonEnemy());
                                 break;
+                            case EnemyTypes.OldWizard:
+                                OnSpawnEnemies.Invoke(EnemyTypes.OldWizard, new GameplayStateEvents.SpawnOldWizard());
+                                break;
 
 
                         }

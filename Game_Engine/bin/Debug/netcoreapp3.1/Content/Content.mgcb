@@ -10,6 +10,8 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\bin\Debug\netcoreapp3.1\MonoGame.Extended.Tiled.dll
+/reference:..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -24,6 +26,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Animations/Enemies/Demon/Demon_Run.png
+
+#begin Assets/Animations/Enemies/OldWizard/Arcane_Spell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Animations/Enemies/OldWizard/Arcane_Spell.png
+
+#begin Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle.png
 
 #begin Assets/Animations/Player/Idle/Player_Idle.png
 /importer:TextureImporter
@@ -49,12 +75,41 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Animations/Player/Spells/Fireball_Spell.png
 
+#begin Assets/Animations/Player/Spells/Necromancer_Spell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Animations/Player/Spells/Necromancer_Spell.png
+
 #begin Assets/Fonts/Base/BaseFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Assets/Fonts/Base/BaseFont.spritefont
+
+#begin Assets/Maps/Map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Assets/Maps/Map.tmx
+
+#begin Assets/Maps/Tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Maps/Tileset.png
 
 #begin Assets/Sprites/Empty.png
 /importer:TextureImporter

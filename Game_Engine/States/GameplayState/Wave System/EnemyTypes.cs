@@ -2,6 +2,7 @@
 {
     public enum EnemyTypes
     {
-        DemonEnemy
+        DemonEnemy,
+        OldWizard
     }
 }

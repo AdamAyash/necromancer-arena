@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Tiled;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Game_Engine.Engine.States
 {
@@ -14,13 +15,15 @@ namespace Game_Engine.Engine.States
         private const string EMPTY_FONT = "Assets/Fonts/Base/BaseFont";
 
         protected List<BaseGameObject> _gameObjectsList;
+        protected GraphicsDevice _graphicsDevice;
         private ContentManager _contentManager;
         private InputManager _inputManager;
 
         protected bool _debugMode = false;
-        public void Intitialize(ContentManager contentManager)
+        public void Intitialize(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
             _contentManager = contentManager;
+            _graphicsDevice = graphicsDevice;
             _gameObjectsList = new List<BaseGameObject>();
         }
 
@@ -30,6 +33,11 @@ namespace Game_Engine.Engine.States
             {
                 return this._inputManager;
             }
+        }
+
+        protected TiledMap LoadTiledMap(string tiledMapName)
+        {
+            return _contentManager.Load<TiledMap>(tiledMapName);
         }
         protected Texture2D LoadTexture(string textureName)
         {
@@ -76,7 +84,7 @@ namespace Game_Engine.Engine.States
         public abstract void Update(GameTime gameTime);
 
         public abstract void HandleInput(GameTime gameTime);
-        protected void  SetInputManager(BaseInputMapper mapper)
+        protected void SetInputManager(BaseInputMapper mapper)
         {
             _inputManager = new InputManager(mapper);
         }

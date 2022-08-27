@@ -36,3 +36,8 @@ C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\obj\Debug\netcoreapp3.1\Game
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\obj\Debug\netcoreapp3.1\Game_Engine.pdb
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\obj\Debug\netcoreapp3.1\Game_Engine.genruntimeconfig.cache
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Content.mgcb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Autofac.dll
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\MonoGame.Extended.dll
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\MonoGame.Extended.Graphics.dll
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\MonoGame.Extended.Tiled.dll
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

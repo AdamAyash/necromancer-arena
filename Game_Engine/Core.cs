@@ -8,7 +8,7 @@ namespace Game_Engine
 {
     public class Core : Game
     {
-        private const int DESIGNED_REOLUTION_WIDTH = 1280;
+        private const int DESIGNED_REOLUTION_WIDTH = 1200;
         private const int DESIGNED_REOLUTION_HEIGHT = 720;
 
         private const float DESIGNED_RESOLUTION_ASPECT_RATIO =
@@ -26,10 +26,12 @@ namespace Game_Engine
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\Content\bin\Windows\";
             IsMouseVisible = true;
-            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferWidth = 1200;
             _graphics.PreferredBackBufferHeight = 720;
+            Window.AllowUserResizing = true;
             _graphics.ApplyChanges();
             SwichToNewState(beginingState);
+
         }
 
         protected override void Initialize()
@@ -70,7 +72,7 @@ namespace Game_Engine
             }
             _currentGameState?.UnloadContent();
             _currentGameState = newState;
-            _currentGameState.Intitialize(Content);
+            _currentGameState.Intitialize(Content,GraphicsDevice);
             _currentGameState.LoadContent();
             _currentGameState.OnStateSwitched += _currentGameState_OnStateSwitched;
 
@@ -96,14 +98,14 @@ namespace Game_Engine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.SetRenderTarget(_renderTarget);
-            GraphicsDevice.Clear(Color.LightGoldenrodYellow);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             _currentGameState.Draw(_spriteBatch);
             _spriteBatch.End();
 
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0f, 0);
-            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             _spriteBatch.Draw(_renderTarget, _renderScaleRectangle, Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);

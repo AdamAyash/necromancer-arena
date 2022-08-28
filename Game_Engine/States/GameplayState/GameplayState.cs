@@ -27,6 +27,7 @@ namespace Game_Engine.States
         private const string DEMON_RUN_ANIMATION = "Assets/Animations/Enemies/Demon/Demon_Run";
         private const string OLD_WIZARD_IDLE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle";
 
+        private const int randomEnemySpawnOffset = 96;
 
         private Animation _plyerProjectileAnimation;
         private Animation _oldWizardProjectileAnimation;
@@ -97,6 +98,7 @@ namespace Game_Engine.States
             _playerAnimationList = new List<Animation>();
             _playerAnimationList.Add(new Animation(LoadTexture(PLAYER_IDLE_ANIMATION), 4, 8));
             _player = new Player(_playerAnimationList);
+            _player.Position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
 
             AddGameObject(_player);
 
@@ -137,14 +139,14 @@ namespace Game_Engine.States
         {
             if (e is GameplayStateEvents.SpawnDemonEnemy)
             {
-                var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(0, _graphicsDevice.Viewport.Width), _rnd.GenerateRandomInteger(0, _graphicsDevice.Viewport.Height));
+                var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
                 var demonEnemy = new Demon_Enemy(_demonAnimationList, randomEnemyPosition);
                 _enemyList.Add(demonEnemy);
                 AddGameObject(demonEnemy);
             }
             else if(e is GameplayStateEvents.SpawnOldWizard)
             {
-                var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(0, _graphicsDevice.Viewport.Width), _rnd.GenerateRandomInteger(0, _graphicsDevice.Viewport.Height));
+                var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
                 var oldWizardEnemy = new OldWizard_Enemy(_oldWizardAnimationList, randomEnemyPosition);
                 oldWizardEnemy.OnEnemyShoot += OldWizardEnemy_OnEnemyShoot;
                 _enemyList.Add(oldWizardEnemy);
@@ -174,7 +176,6 @@ namespace Game_Engine.States
             enemyProjectileCollision.DetectCircleCollision(_enemyList, (projectile, enemy) =>
              {
                  enemy.Health -= projectile.Damage;
-                 Console.WriteLine(enemy.Health);
              });
 
             enemyToEnemyCollision.DetectCollision((enemy1, enemy2) =>

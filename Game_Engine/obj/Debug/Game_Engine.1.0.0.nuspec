@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Game_Engine</id>
+    <version>1.0.0</version>
+    <authors>Game_Engine</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="MonoGame.Content.Builder.Task" version="3.8.1.303" exclude="Build,Analyzers" />
+        <dependency id="MonoGame.Extended" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="MonoGame.Extended.Content.Pipeline" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="MonoGame.Extended.Tiled" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="MonoGame.Framework.WindowsDX" version="3.8.0.1641" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Game_Engine.runtimeconfig.json" target="lib\netcoreapp3.1\Game_Engine.runtimeconfig.json" />
+    <file src="C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Game_Engine.dll" target="lib\netcoreapp3.1\Game_Engine.dll" />
+  </files>
+</package>

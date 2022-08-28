@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/Demon/Demon_Run.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/OldWizard/Arcane_Spell.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Idle/Player_Idle.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Spells/Fireball_Spell.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Spells/Necromancer_Spell.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/Base/BaseFont.spritefont</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Map.tmx</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Tileset.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/Empty.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

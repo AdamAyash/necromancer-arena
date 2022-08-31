@@ -11,11 +11,13 @@
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Spells/Fireball_Spell.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Spells/Necromancer_Spell.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/Base/BaseFont.spritefont</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/Wave_Switch/WaveSwitch.spritefont</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Map.tmx</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Tileset.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/Empty.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

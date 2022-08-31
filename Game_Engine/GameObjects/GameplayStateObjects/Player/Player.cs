@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 {
-    public class Player : BaseGameObject, IGameObjectWidthDamage
+    public class Player : BaseGameObject
     {
         private const float PLAYER_SPEED = 4.5f;
         private bool _isAlive;
@@ -16,7 +16,6 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
         public List<Animation> Animations { get; set; }
         public int PlayerHealth { get; set; }
         public SpriteEffects PlayerOrientation { private get; set; }
-        public int Damage { get => 10; }
 
         public Player(List<Animation> animationList)
         {

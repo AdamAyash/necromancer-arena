@@ -12,6 +12,54 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Assets\Animations\Enemies\Demon\Demon_Run.xnb" />
+    <None Remove="Content\Assets\Animations\Enemies\OldWizard\Arcane_Spell.xnb" />
+    <None Remove="Content\Assets\Animations\Enemies\OldWizard\Old_Wizard_Idle.xnb" />
+    <None Remove="Content\Assets\Animations\Player\Idle\Player_Idle.xnb" />
+    <None Remove="Content\Assets\Animations\Player\Spells\Necromancer_Spell.xnb" />
+    <None Remove="Content\Assets\Fonts\Base\BaseFont.xnb" />
+    <None Remove="Content\Assets\Fonts\Wave_Switch\WaveSwitch.xnb" />
+    <None Remove="Content\Assets\Maps\Map.xnb" />
+    <None Remove="Content\Assets\Maps\Tileset.xnb" />
+    <None Remove="Content\Assets\Sprites\Empty.png" />
+    <None Remove="Content\Assets\Sprites\Empty.xnb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Assets\Animations\Enemies\Demon\Demon_Run.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Animations\Enemies\OldWizard\Arcane_Spell.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Animations\Enemies\OldWizard\Old_Wizard_Idle.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Animations\Player\Idle\Player_Idle.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Animations\Player\Spells\Necromancer_Spell.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Fonts\Base\BaseFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Fonts\Wave_Switch\WaveSwitch.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Maps\Map.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Maps\Tileset.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Sprites\Empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Sprites\Empty.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
@@ -22,15 +70,7 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Assets\Animations\Enemies\Demon\" />
-    <Folder Include="Content\Assets\Animations\Player\" />
-    <Folder Include="Content\Assets\Animations\Player\Idle\" />
     <Folder Include="Content\Assets\Animations\Player\Run\" />
-    <Folder Include="Content\Assets\Animations\Player\Spells\" />
-    <Folder Include="Content\Assets\Maps\" />
-    <Folder Include="Content\Assets\Sprites\" />
-    <Folder Include="Content\bin\Windows\Assets\Maps\" />
-    <Folder Include="GameObjects\SplashStateObjects\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Assets\Animations\Enemies\Demon\Demon_Run.png">
@@ -60,41 +100,8 @@
     <None Update="Content\Assets\Maps\Tileset.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Content\Assets\Sprites\Empty.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Animations\Enemies\Demon\Demon_Run.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Animations\Enemies\OldWizard\Arcane_Spell.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Animations\Enemies\OldWizard\Old_Wizard_Idle.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Animations\Player\Idle\Player_Idle.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Animations\Player\Spells\Fireball_Spell.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Animations\Player\Spells\Necromancer_Spell.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Fonts\Base\BaseFont.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Maps\Map.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Maps\Tileset.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\bin\Windows\Assets\Sprites\Empty.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Content\Content.mgcb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>

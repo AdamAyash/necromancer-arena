@@ -15,7 +15,10 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Projectiles
         private Animation _animation;
         private Vector2 _targetPosition;
 
-        public int Damage => 10;
+        public int Damage => 100;
+
+        public bool IsActive { get; set; }
+
 
         public Projectile(Animation animation, Vector2 position, Vector2 targetPosition)
         {
@@ -26,6 +29,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Projectiles
             _direction = targetPosition - _position;
             _direction.Normalize();
             _angle = (float)Math.Atan2(_direction.Y, _direction.X);
+            IsActive = true;
             AddCircleCollider(new Engine.GameObjects.Collision_Detection.CircleColider(_origin, RADIUS));
         }
 

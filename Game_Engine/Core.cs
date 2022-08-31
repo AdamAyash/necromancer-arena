@@ -24,7 +24,7 @@ namespace Game_Engine
         public Core(BaseGameState beginingState)
         {
             _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = @"C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\Content\bin\Windows\";
+            Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.PreferredBackBufferWidth = 1200;
             _graphics.PreferredBackBufferHeight = 720;

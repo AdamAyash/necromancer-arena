@@ -14,6 +14,7 @@ using Game_Engine.Engine.GameObjects.Debug;
 using Game_Engine.GameObjects.GameplayStateObjects.Player;
 using Game_Engine.GameObjects.GameplayStateObjects.Enemies;
 using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
+using Game_Engine.GameObjects.GameplayStateTextObjects;
 
 namespace Game_Engine.States
 {
@@ -27,7 +28,16 @@ namespace Game_Engine.States
         private const string DEMON_RUN_ANIMATION = "Assets/Animations/Enemies/Demon/Demon_Run";
         private const string OLD_WIZARD_IDLE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle";
 
+        private const int PLAYERBOUNDSLEFT_X = 60;
+        private const int PLAYERBOUNDSRIGHT_X = 1100;
+        private const int PLAYERBOUNDSLEFT_Y = 60;
+        private const int PLAYERBOUNDSRIGHT_Y = 600;
+
+        private const int offScreenCleanObjectsTrigger = -500;
+
         private const int randomEnemySpawnOffset = 96;
+
+        
 
         private Animation _plyerProjectileAnimation;
         private Animation _oldWizardProjectileAnimation;
@@ -118,12 +128,17 @@ namespace Game_Engine.States
 
             _waveList = new List<Wave>()
             {
-                new Wave(6)
+                new Wave(2),
+                new Wave(2)
             };
             _waveList[0].EnemyTypesList = new List<(EnemyTypes, int)>
             {
                 (EnemyTypes.DemonEnemy,2),
-                (EnemyTypes.OldWizard,2)
+                 (EnemyTypes.DemonEnemy,4),
+            };
+            _waveList[1].EnemyTypesList = new List<(EnemyTypes, int)>
+            {
+                (EnemyTypes.OldWizard,2),
             };
             _waveSystem = new Wave_System(_waveList);
             _waveSystem.OnSpawnEnemies += _waveSystem_OnSpawnEnemies;
@@ -175,13 +190,16 @@ namespace Game_Engine.States
 
             enemyProjectileCollision.DetectCircleCollision(_enemyList, (projectile, enemy) =>
              {
-                 enemy.Health -= projectile.Damage;
+                 enemy.JustHit(projectile);
+                 projectile.IsActive = false;
              });
 
             enemyToEnemyCollision.DetectCollision((enemy1, enemy2) =>
             {
                 enemy1.Speed += (float)_rnd.GenerateRandomFloat();
             });
+
+            KeepPlayerBounds();
         }
         protected void ShootProjectile(Vector2 mousePosition, GameTime gameTime)
         {
@@ -194,6 +212,68 @@ namespace Game_Engine.States
             }
         }
 
+        private void KeepPlayerBounds()
+        {
+            if (_player.Position.X < PLAYERBOUNDSLEFT_X)
+            {
+
+                _player.Position = new Vector2(PLAYERBOUNDSLEFT_X, _player.Position.Y);
+            }
+            if (_player.Position.X > PLAYERBOUNDSRIGHT_X)
+            {
+                _player.Position = new Vector2(PLAYERBOUNDSRIGHT_X, _player.Position.Y);
+            }
+
+            if (_player.Position.Y < PLAYERBOUNDSLEFT_Y)
+            {
+
+                _player.Position = new Vector2( _player.Position.X, PLAYERBOUNDSLEFT_Y);
+            }
+            if (_player.Position.Y > PLAYERBOUNDSRIGHT_Y)
+            {
+                _player.Position = new Vector2(_player.Position.X, PLAYERBOUNDSRIGHT_Y);
+            }
+        }
+
+        private List<T> Clean<T>(List<T> someObjectList,Func<T,bool> predicate, Action<T> action) where T: BaseGameObject
+        {
+            List<T> newList = new List<T>();
+            foreach (var obj in someObjectList)
+            {
+                if (predicate(obj))
+                {
+                    action(obj);
+                }
+                else
+                {
+                    newList.Add(obj);
+                }
+            }
+            return newList;
+        }
+
+        private bool ProjectilePredicate(Projectile pro)
+        {
+            if (!pro.IsActive || pro.Position.X > _graphicsDevice.Viewport.Width
+                || pro.Position.X < offScreenCleanObjectsTrigger || pro.Position.Y > _graphicsDevice.Viewport.Height
+                || pro.Position.Y < offScreenCleanObjectsTrigger)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool EnemyPredicate(AI enemy)
+        {
+            if (!enemy.IsAlive)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public override void Update(GameTime gameTime)
         {
             if (_debugMode)
@@ -204,7 +284,6 @@ namespace Game_Engine.States
             InputManager.Update();
             _mapRendered.Update(gameTime);
             DetectCollisions();
-            _waveSystem.Update(gameTime);
 
             if (InputManager.MouseX < _player.Position.X)
             {
@@ -219,11 +298,21 @@ namespace Game_Engine.States
             {
                 enemy.Update(gameTime, _player.Position);
             }
+            _waveSystem.Update(gameTime,_enemyList.Count);
 
             foreach (var gameObject in _gameObjectsList)
             {
                 gameObject.Update(gameTime);
             }
+
+            _playerProjectilesList = Clean<Projectile>(_playerProjectilesList, ProjectilePredicate, obj => {
+                RemoveGameObject(obj);
+            });
+
+            _enemyList = Clean<AI>(_enemyList, EnemyPredicate, enemy => {
+                RemoveGameObject(enemy);
+            });
+
         }
 
         public override void Draw(SpriteBatch _spriteBatch)

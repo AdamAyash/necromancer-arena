@@ -94,6 +94,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Fonts/Base/BaseFont.spritefont
 
+#begin Assets/Fonts/Wave_Switch/WaveSwitch.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Assets/Fonts/Wave_Switch/WaveSwitch.spritefont
+
 #begin Assets/Maps/Map.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor

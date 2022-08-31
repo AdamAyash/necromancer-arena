@@ -3,6 +3,6 @@
     public enum EnemyTypes
     {
         DemonEnemy,
-        OldWizard
+        OldWizard,
     }
 }

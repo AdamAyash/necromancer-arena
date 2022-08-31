@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Game_Engine.Engine.States;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using Game_Engine.GameObjects.GameplayStateTextObjects;
 
 namespace Game_Engine.States
 {
@@ -25,42 +27,32 @@ namespace Game_Engine.States
         {
             _waves = waves;
             _numberOFWaves = _waves.Count;
-            _waveIndex = 0;
-            _currentWave = _waves[_waveIndex];
-            _currentWaveListCount = _currentWave.EnemyTypesList.Count;
-            _currentWaveListIndex = 0;
-            _enemiesSpawned = 0;
-            _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
-
+            _waveIndex = -1;
+            SwitchToNextWave();
         }
-       
-        public void Update(GameTime gameTime)
+
+        public void Update(GameTime gameTime, int currentAliveEnemies)
         {
             if ((float)gameTime.TotalGameTime.TotalSeconds - _timeElapsed >= _currentWave.EnemySpawnInterval.TotalSeconds)
             {
                 _timeElapsed = (float)gameTime.TotalGameTime.TotalSeconds;
-                if (_currentWaveListIndex < _currentWaveListCount)
+                if (_currentWaveListIndex <= _currentWaveListCount - 1 && _enemiesSpawned <= _currentWaveListEnemiesCount - 1)
                 {
-                    if (_enemiesSpawned < _currentWaveListEnemiesCount)
+                    switch (_currentWave.EnemyTypesList[_currentWaveListIndex].Item1)
                     {
-                        switch (_currentWave.EnemyTypesList[_currentWaveListIndex].Item1)
-                        {
-                            case EnemyTypes.DemonEnemy:
-                                OnSpawnEnemies.Invoke(EnemyTypes.DemonEnemy, new GameplayStateEvents.SpawnDemonEnemy());
-                                break;
-                            case EnemyTypes.OldWizard:
-                                OnSpawnEnemies.Invoke(EnemyTypes.OldWizard, new GameplayStateEvents.SpawnOldWizard());
-                                break;
-
-
-                        }
-                        _enemiesSpawned++;
+                        case EnemyTypes.DemonEnemy:
+                            OnSpawnEnemies.Invoke(EnemyTypes.DemonEnemy, new GameplayStateEvents.SpawnDemonEnemy());
+                            break;
+                        case EnemyTypes.OldWizard:
+                            OnSpawnEnemies.Invoke(EnemyTypes.OldWizard, new GameplayStateEvents.SpawnOldWizard());
+                            break;
                     }
-                    else
-                    {
-                        _currentWaveListIndex++;
-                        _enemiesSpawned = 0;
-                    }
+                    _enemiesSpawned++;
+                }
+                else if (_enemiesSpawned > _currentWaveListEnemiesCount - 1 && _currentWaveListIndex + 1 <= _currentWaveListCount - 1)
+                {
+                    _currentWaveListIndex++;
+                    _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
                 }
                 else
                 {
@@ -71,7 +63,16 @@ namespace Game_Engine.States
 
         private void SwitchToNextWave()
         {
-            Console.WriteLine("Wave Switched");
+            _waveIndex++;
+            if (_waveIndex < _numberOFWaves)
+            {
+                _currentWave = _waves[_waveIndex];
+                _currentWaveListCount = _currentWave.EnemyTypesList.Count;
+                _currentWaveListIndex = 0;
+                _enemiesSpawned = 0;
+                _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
+                Console.WriteLine("Wave Switched");
+            }
         }
 
         public void AddWave(Wave wave)

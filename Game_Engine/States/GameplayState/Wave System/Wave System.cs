@@ -23,6 +23,8 @@ namespace Game_Engine.States
         private float _timeElapsed;
 
         public event EventHandler<BaseGameStateEvent> OnSpawnEnemies;
+
+        public event EventHandler<int> OnDisplayText;
         public Wave_System(List<Wave> waves)
         {
             _waves = waves;
@@ -56,7 +58,10 @@ namespace Game_Engine.States
                 }
                 else
                 {
-                    SwitchToNextWave();
+                    if (currentAliveEnemies == 0)
+                    {
+                        SwitchToNextWave();
+                    }
                 }
             }
         }
@@ -71,13 +76,10 @@ namespace Game_Engine.States
                 _currentWaveListIndex = 0;
                 _enemiesSpawned = 0;
                 _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
+                OnDisplayText?.Invoke(this, _waveIndex + 1);
                 Console.WriteLine("Wave Switched");
             }
         }
-
-        public void AddWave(Wave wave)
-        {
-            _waves.Add(wave);
-        }
+       
     }
 }

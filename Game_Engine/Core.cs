@@ -37,8 +37,19 @@ namespace Game_Engine
         protected override void Initialize()
         {
             _renderTarget = new RenderTarget2D(GraphicsDevice, DESIGNED_REOLUTION_WIDTH, DESIGNED_REOLUTION_HEIGHT, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
-            _renderScaleRectangle = GetScaleRectangle();
+            RescaleWindow();
+            Window.ClientSizeChanged += Window_ClientSizeChanged;
             base.Initialize();
+        }
+
+        private void Window_ClientSizeChanged(object sender, System.EventArgs e)
+        {
+            RescaleWindow();
+        }
+
+        private void RescaleWindow()
+        {
+            _renderScaleRectangle = GetScaleRectangle();
         }
 
         private Rectangle GetScaleRectangle()
@@ -72,7 +83,7 @@ namespace Game_Engine
             }
             _currentGameState?.UnloadContent();
             _currentGameState = newState;
-            _currentGameState.Intitialize(Content,GraphicsDevice);
+            _currentGameState.Intitialize(Content, GraphicsDevice);
             _currentGameState.LoadContent();
             _currentGameState.OnStateSwitched += _currentGameState_OnStateSwitched;
 

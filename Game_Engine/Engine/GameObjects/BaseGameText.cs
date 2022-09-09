@@ -9,6 +9,14 @@ namespace Game_Engine.Engine.GameObjects
 
         public string Text { get; set; }
 
+        public SpriteFont Font
+        {
+            get
+            {
+                return _font;
+            }
+        }
+
         public BaseGameText(SpriteFont font)
         {
             _font = font;

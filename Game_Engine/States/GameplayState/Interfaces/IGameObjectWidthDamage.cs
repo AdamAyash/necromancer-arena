@@ -1,4 +1,4 @@
 ﻿public interface IGameObjectWidthDamage
 {
-    public int Damage { get; }
+    public int Damage { get; set; }
 }

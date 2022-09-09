@@ -19,7 +19,6 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 
         private float _opacity;
         private float _opacityFadingRate;
-        private float _isAliveWaitInterval;
 
 
         public List<Animation> _animations;
@@ -31,7 +30,6 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 
         private SpriteEffects _orinetation;
 
-        public int Damage => 10;
 
         public int Health { get; set; }
 
@@ -55,6 +53,15 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
             }
         }
 
+        public bool AttackMode
+        {
+            get
+            {
+                return _attackMode;
+            }
+        }
+
+        public int Damage { get; set; }
 
         public AI(List<Animation> animations, Vector2 position)
         {
@@ -66,11 +73,10 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
             IsAlive = true;
             _opacity = 1f;
             _opacityFadingRate = 0.01f;
-            _isAliveWaitInterval = -100;
             _offscreenYPos = -150;
             _falldownSpeed = 5.5f;
             _falldownAcceleration = 0.1f;
-
+            _hitAt = 100;
         }
 
         public virtual void Update(GameTime gameTime, Vector2 playerPosition)

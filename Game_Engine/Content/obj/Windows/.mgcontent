@@ -15,8 +15,22 @@
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Map.tmx</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Tileset.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/Empty.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_0.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_1.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_2.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_3.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_4.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_6.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/heaths_5.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

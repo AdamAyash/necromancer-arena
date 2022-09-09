@@ -29,14 +29,14 @@ namespace Game_Engine.Engine.GameObjects
         {
             for (int i = 0; i < _passiveObjects.Count - 1; i++)
             {
-                if (DetectCollsion(_passiveObjects[i],_passiveObjects[i + 1]))
+                if (DetectCollsion(_passiveObjects[i], _passiveObjects[i + 1]))
                 {
                     collisionhandler(_passiveObjects[i], _passiveObjects[i + 1]);
                 }
             }
         }
 
-        public void DetectCircleCollision(List<A> activeObjects, Action<P,A> collisionHandler)
+        public void DetectCircleCollision(List<A> activeObjects, Action<P, A> collisionHandler)
         {
             foreach (var passiveObject in _passiveObjects)
             {
@@ -46,6 +46,17 @@ namespace Game_Engine.Engine.GameObjects
                     {
                         collisionHandler(passiveObject, activeObject);
                     }
+                }
+            }
+        }
+
+        public void DetectCircleCollision(A activeObject, Action<P, A> collisionHandler)
+        {
+            foreach (var passiveObject in _passiveObjects)
+            {
+                if (DetectCircleCollision(passiveObject, activeObject))
+                {
+                    collisionHandler(passiveObject, activeObject);
                 }
             }
         }

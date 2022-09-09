@@ -16,8 +16,8 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
         {
             _currentAnimation = _animations[0];
             AddBoundingBoxes(new Engine.GameObjects.BoundingBox(Position, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height));
-            Health = 100;
-            enemyShootCooldown = TimeSpan.FromSeconds(2);
+            Health = 1;
+            enemyShootCooldown = TimeSpan.FromSeconds(3);
             lastEnemyShotAt = 0f;
         }
 

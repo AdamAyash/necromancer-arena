@@ -1,24 +1,27 @@
 ﻿using Game_Engine.Engine.States;
+using Game_Engine.ParticleSystem;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Game_Engine.States.DevelopmentState
 {
     public class DevelopmentState : BaseGameState
     {
+        private BloodEmitter _emitter;
         public override void HandleInput(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
 
         }
 
         public override void LoadContent()
         {
-            throw new System.NotImplementedException();
+            _emitter = new BloodEmitter(LoadTexture("Assets/Particles/BloodPartciles/1"),new Vector2(600,360));
+            AddGameObject(_emitter);
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+            _emitter.Update(gameTime);
         }
     }
 }

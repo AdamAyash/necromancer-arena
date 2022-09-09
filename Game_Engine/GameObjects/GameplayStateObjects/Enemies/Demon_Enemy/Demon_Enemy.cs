@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 {
-    public class Demon_Enemy : AI
+    public class Demon_Enemy : AI, IGameObjectWidthDamage
     {
         private float distanceTrigger;
         public Demon_Enemy(List<Animation> animations, Vector2 position) : base(animations, position)
@@ -14,7 +14,8 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
             _currentAnimation = _animations[0];
             AddBoundingBoxes(new Engine.GameObjects.BoundingBox(Position, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height));
             distanceTrigger = 40f;
-            Health = 100;
+            Health = 2;
+            Damage = 1;
         }
         public override void Update(GameTime gameTime, Vector2 playerPosition)
         {

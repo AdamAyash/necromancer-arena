@@ -15,6 +15,7 @@ using Game_Engine.GameObjects.GameplayStateObjects.Player;
 using Game_Engine.GameObjects.GameplayStateObjects.Enemies;
 using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
 using Game_Engine.GameObjects.GameplayStateTextObjects;
+using Game_Engine.GameObjects.UI;
 
 namespace Game_Engine.States
 {
@@ -27,6 +28,15 @@ namespace Game_Engine.States
         private const string OLD_WIZARD_PROJECTILE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Arcane_Spell";
         private const string DEMON_RUN_ANIMATION = "Assets/Animations/Enemies/Demon/Demon_Run";
         private const string OLD_WIZARD_IDLE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle";
+        private const string DISPAY_TEXT_FONT = "Assets/Fonts/Wave_Switch/WaveSwitch";
+
+        private const string UI_PLAYERHEALTH_0 = "Assets/UI/PlayerHealth/hearths_0";
+        private const string UI_PLAYERHEALTH_1 = "Assets/UI/PlayerHealth/hearths_1";
+        private const string UI_PLAYERHEALTH_2 = "Assets/UI/PlayerHealth/hearths_2";
+        private const string UI_PLAYERHEALTH_3 = "Assets/UI/PlayerHealth/hearths_3";
+        private const string UI_PLAYERHEALTH_4 = "Assets/UI/PlayerHealth/hearths_4";
+        private const string UI_PLAYERHEALTH_5 = "Assets/UI/PlayerHealth/heaths_5";
+        private const string UI_PLAYERHEALTH_6 = "Assets/UI/PlayerHealth/hearths_6";
 
         private const int PLAYERBOUNDSLEFT_X = 60;
         private const int PLAYERBOUNDSRIGHT_X = 1100;
@@ -37,7 +47,7 @@ namespace Game_Engine.States
 
         private const int randomEnemySpawnOffset = 96;
 
-        
+        private SpriteFont _displayTextFont;
 
         private Animation _plyerProjectileAnimation;
         private Animation _oldWizardProjectileAnimation;
@@ -64,6 +74,9 @@ namespace Game_Engine.States
         private TimeSpan lastShotAt;
 
         private Debug_Details _debugDetails;
+
+        private PlayerHealth _playerHealth;
+        private Texture2D[] _playerHealthTextures;
 
         public override void HandleInput(GameTime gameTime)
         {
@@ -126,6 +139,8 @@ namespace Game_Engine.States
             _oldWizardAnimationList = new List<Animation>();
             _oldWizardAnimationList.Add(new Animation(LoadTexture(OLD_WIZARD_IDLE_ANIMATION), 4, 8));
 
+            _displayTextFont = LoadSpriteFont(DISPAY_TEXT_FONT);
+
             _waveList = new List<Wave>()
             {
                 new Wave(2),
@@ -141,14 +156,38 @@ namespace Game_Engine.States
                 (EnemyTypes.OldWizard,2),
             };
             _waveSystem = new Wave_System(_waveList);
+            _waveSystem_OnDisplayText(this,1);
             _waveSystem.OnSpawnEnemies += _waveSystem_OnSpawnEnemies;
+            _waveSystem.OnDisplayText += _waveSystem_OnDisplayText;
 
             _map = LoadTiledMap(MAP_ASSET_NAME);
             _mapRendered = new TiledMapRenderer(_graphicsDevice, _map);
             _rnd = new RandomNumberGenerator();
+
+            _playerHealthTextures = new Texture2D[]
+            {
+                LoadTexture(UI_PLAYERHEALTH_0),
+                LoadTexture(UI_PLAYERHEALTH_1),
+                LoadTexture(UI_PLAYERHEALTH_2),
+                LoadTexture(UI_PLAYERHEALTH_3),
+                LoadTexture(UI_PLAYERHEALTH_4),
+                LoadTexture(UI_PLAYERHEALTH_5),
+                LoadTexture(UI_PLAYERHEALTH_6),
+            };
+            
+
+            _playerHealth = new PlayerHealth(_playerHealthTextures);
+            AddGameObject(_playerHealth);
             SetInputManager(new GameplayInputMapper());
 
         }
+
+        private void _waveSystem_OnDisplayText(object sender, int e)
+        {
+            var waveText = new DisplayText(_displayTextFont,e,new Vector2(550,70));
+            AddGameObject(waveText);
+        }
+
 
         private void _waveSystem_OnSpawnEnemies(object sender, BaseGameStateEvent e)
         {
@@ -171,32 +210,44 @@ namespace Game_Engine.States
 
         private void OldWizardEnemy_OnEnemyShoot(object sender, Vector2 e)
         {
-            var projectile = new Projectile(_oldWizardProjectileAnimation,e,_player.Position);
+            var projectile = new Projectile(_oldWizardProjectileAnimation, e, _player.OriginPosition);
             _enemyProjectileList.Add(projectile);
             AddGameObject(projectile);
         }
 
-        private void DetectCollisions()
+        private void DetectCollisions(GameTime gameTime)
         {
             var playerEnemyCollision = new AABBCollisionDetection<AI, Player>(_enemyList);
             var enemyProjectileCollision = new AABBCollisionDetection<Projectile, AI>(_playerProjectilesList);
             var enemyToEnemyCollision = new AABBCollisionDetection<AI, AI>(_enemyList);
+            var enemyProjectileToPlayerCollision = new AABBCollisionDetection<Projectile,Player>(_enemyProjectileList);
 
             playerEnemyCollision.DetectCollision(_player, (enemy, player) =>
             {
-                player.PlayerHealth -= enemy.Damage;
+                player.TakeDamage(enemy, gameTime);
+                _playerHealth.PlayerHealthIndex = _player.PlayerHealth;
+                Console.WriteLine(player.PlayerHealth);
             });
 
 
             enemyProjectileCollision.DetectCircleCollision(_enemyList, (projectile, enemy) =>
              {
-                 enemy.JustHit(projectile);
-                 projectile.IsActive = false;
+                 if (enemy.AttackMode)
+                 {
+                     enemy.JustHit(projectile);
+                     projectile.IsActive = false;
+                 }
              });
 
             enemyToEnemyCollision.DetectCollision((enemy1, enemy2) =>
             {
                 enemy1.Speed += (float)_rnd.GenerateRandomFloat();
+            });
+
+            enemyProjectileToPlayerCollision.DetectCircleCollision(_player, (projectile, player) =>
+            {
+                _player.TakeDamage(projectile, gameTime);
+                _playerHealth.PlayerHealthIndex = _player.PlayerHealth;
             });
 
             KeepPlayerBounds();
@@ -283,7 +334,7 @@ namespace Game_Engine.States
             HandleInput(gameTime);
             InputManager.Update();
             _mapRendered.Update(gameTime);
-            DetectCollisions();
+            DetectCollisions(gameTime);
 
             if (InputManager.MouseX < _player.Position.X)
             {

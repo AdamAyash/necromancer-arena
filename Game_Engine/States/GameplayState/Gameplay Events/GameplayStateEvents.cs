@@ -7,5 +7,7 @@ namespace Game_Engine.States
         public class SpawnDemonEnemy : GameplayStateEvents { }
 
         public class SpawnOldWizard : GameplayStateEvents { }
+
+        public class SpawnZombie : GameplayStateEvents { }
     }
 }

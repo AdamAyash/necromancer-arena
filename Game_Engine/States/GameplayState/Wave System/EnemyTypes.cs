@@ -4,5 +4,6 @@
     {
         DemonEnemy,
         OldWizard,
+        Zombie,
     }
 }

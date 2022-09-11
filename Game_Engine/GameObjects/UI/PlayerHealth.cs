@@ -12,7 +12,10 @@ namespace Game_Engine.GameObjects.UI
         {
             set
             {
-                _objectTexture = _playerHealthTextures[value];
+                if (value >= 0)
+                {
+                    _objectTexture = _playerHealthTextures[value];
+                }
             }
         }
         public PlayerHealth(Texture2D[] playerHealthTextures)

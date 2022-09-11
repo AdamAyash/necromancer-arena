@@ -9,7 +9,7 @@ namespace Game_Engine.Engine.GameObjects.Debug
 
         public Debug_Details(SpriteFont font) : base(font)
         {
-            _position = new Vector2(0, 0);
+            _position = new Vector2(110, 0);
         }
 
         public override void Update(GameTime gameTime)

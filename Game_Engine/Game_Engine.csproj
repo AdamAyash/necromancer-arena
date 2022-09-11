@@ -15,9 +15,13 @@
     <None Remove="Content\Assets\Animations\Enemies\Demon\Demon_Run.xnb" />
     <None Remove="Content\Assets\Animations\Enemies\OldWizard\Arcane_Spell.xnb" />
     <None Remove="Content\Assets\Animations\Enemies\OldWizard\Old_Wizard_Idle.xnb" />
+    <None Remove="Content\Assets\Animations\Enemies\Zombie\zombie_Run.xnb" />
     <None Remove="Content\Assets\Animations\Player\Idle\Player_Idle.xnb" />
     <None Remove="Content\Assets\Animations\Player\Spells\Necromancer_Spell.xnb" />
     <None Remove="Content\Assets\Fonts\Base\BaseFont.xnb" />
+    <None Remove="Content\Assets\Fonts\GameOver\GameOverText.xnb" />
+    <None Remove="Content\Assets\Fonts\GameOver\GothicPixels.ttf" />
+    <None Remove="Content\Assets\Fonts\Wave_Switch\GothicPixels.ttf" />
     <None Remove="Content\Assets\Fonts\Wave_Switch\WaveSwitch.xnb" />
     <None Remove="Content\Assets\Maps\Map.xnb" />
     <None Remove="Content\Assets\Maps\Tileset.xnb" />
@@ -41,6 +45,9 @@
     <Content Include="Content\Assets\Animations\Enemies\OldWizard\Old_Wizard_Idle.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Assets\Animations\Enemies\Zombie\zombie_Run.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Assets\Animations\Player\Idle\Player_Idle.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -48,6 +55,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\Fonts\Base\BaseFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Fonts\GameOver\GameOverText.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Fonts\GameOver\GothicPixels.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Fonts\Wave_Switch\GothicPixels.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\Fonts\Wave_Switch\WaveSwitch.xnb">

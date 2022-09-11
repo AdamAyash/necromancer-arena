@@ -16,6 +16,7 @@ using Game_Engine.GameObjects.GameplayStateObjects.Enemies;
 using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
 using Game_Engine.GameObjects.GameplayStateTextObjects;
 using Game_Engine.GameObjects.UI;
+using Game_Engine.GameObjects.GameplayStateObjects.Enemies.Zombie;
 
 namespace Game_Engine.States
 {
@@ -28,7 +29,10 @@ namespace Game_Engine.States
         private const string OLD_WIZARD_PROJECTILE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Arcane_Spell";
         private const string DEMON_RUN_ANIMATION = "Assets/Animations/Enemies/Demon/Demon_Run";
         private const string OLD_WIZARD_IDLE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle";
+        private const string ZOMBIE_IDLE_ANIMATION = "Assets/Animations/Enemies/Zombie/zombie_Run";
+
         private const string DISPAY_TEXT_FONT = "Assets/Fonts/Wave_Switch/WaveSwitch";
+        private const string GAMEOVER_TEXT_FONT = "Assets/Fonts/GameOver/GameOverText";
 
         private const string UI_PLAYERHEALTH_0 = "Assets/UI/PlayerHealth/hearths_0";
         private const string UI_PLAYERHEALTH_1 = "Assets/UI/PlayerHealth/hearths_1";
@@ -57,6 +61,7 @@ namespace Game_Engine.States
         private List<Animation> _playerAnimationList;
         private List<Animation> _demonAnimationList;
         private List<Animation> _oldWizardAnimationList;
+        private List<Animation> _zombieAnimationList;
 
         private Wave_System _waveSystem;
         private List<Wave> _waveList;
@@ -74,6 +79,7 @@ namespace Game_Engine.States
         private TimeSpan lastShotAt;
 
         private Debug_Details _debugDetails;
+        private GameOverText _gameOverText;
 
         private PlayerHealth _playerHealth;
         private Texture2D[] _playerHealthTextures;
@@ -139,7 +145,11 @@ namespace Game_Engine.States
             _oldWizardAnimationList = new List<Animation>();
             _oldWizardAnimationList.Add(new Animation(LoadTexture(OLD_WIZARD_IDLE_ANIMATION), 4, 8));
 
+            _zombieAnimationList = new List<Animation>();
+            _zombieAnimationList.Add(new Animation(LoadTexture(ZOMBIE_IDLE_ANIMATION), 4, 8));
+
             _displayTextFont = LoadSpriteFont(DISPAY_TEXT_FONT);
+            _gameOverText = new GameOverText(LoadSpriteFont(GAMEOVER_TEXT_FONT), new Vector2(_graphicsDevice.Viewport.Width / 2 - 200, 100));
 
             _waveList = new List<Wave>()
             {
@@ -148,15 +158,20 @@ namespace Game_Engine.States
             };
             _waveList[0].EnemyTypesList = new List<(EnemyTypes, int)>
             {
-                (EnemyTypes.DemonEnemy,2),
-                 (EnemyTypes.DemonEnemy,4),
+                (EnemyTypes.DemonEnemy,1),
+                //(EnemyTypes.DemonEnemy,4),
+                (EnemyTypes.Zombie,2),
+                (EnemyTypes.DemonEnemy,1),
+                (EnemyTypes.DemonEnemy,1),
+                (EnemyTypes.DemonEnemy,1),
+                (EnemyTypes.DemonEnemy,1),
             };
             _waveList[1].EnemyTypesList = new List<(EnemyTypes, int)>
             {
                 (EnemyTypes.OldWizard,2),
             };
             _waveSystem = new Wave_System(_waveList);
-            _waveSystem_OnDisplayText(this,1);
+            _waveSystem_OnDisplayText(this, 1);
             _waveSystem.OnSpawnEnemies += _waveSystem_OnSpawnEnemies;
             _waveSystem.OnDisplayText += _waveSystem_OnDisplayText;
 
@@ -174,7 +189,7 @@ namespace Game_Engine.States
                 LoadTexture(UI_PLAYERHEALTH_5),
                 LoadTexture(UI_PLAYERHEALTH_6),
             };
-            
+
 
             _playerHealth = new PlayerHealth(_playerHealthTextures);
             AddGameObject(_playerHealth);
@@ -184,7 +199,7 @@ namespace Game_Engine.States
 
         private void _waveSystem_OnDisplayText(object sender, int e)
         {
-            var waveText = new DisplayText(_displayTextFont,e,new Vector2(550,70));
+            var waveText = new DisplayText(_displayTextFont, e, new Vector2(550, 70));
             AddGameObject(waveText);
         }
 
@@ -198,13 +213,20 @@ namespace Game_Engine.States
                 _enemyList.Add(demonEnemy);
                 AddGameObject(demonEnemy);
             }
-            else if(e is GameplayStateEvents.SpawnOldWizard)
+            else if (e is GameplayStateEvents.SpawnOldWizard)
             {
                 var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
                 var oldWizardEnemy = new OldWizard_Enemy(_oldWizardAnimationList, randomEnemyPosition);
                 oldWizardEnemy.OnEnemyShoot += OldWizardEnemy_OnEnemyShoot;
                 _enemyList.Add(oldWizardEnemy);
                 AddGameObject(oldWizardEnemy);
+            }
+            else if (e is GameplayStateEvents.SpawnZombie)
+            {
+                var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
+                var zombie = new Zombie(_zombieAnimationList, randomEnemyPosition);
+                _enemyList.Add(zombie);
+                AddGameObject(zombie);
             }
         }
 
@@ -220,7 +242,7 @@ namespace Game_Engine.States
             var playerEnemyCollision = new AABBCollisionDetection<AI, Player>(_enemyList);
             var enemyProjectileCollision = new AABBCollisionDetection<Projectile, AI>(_playerProjectilesList);
             var enemyToEnemyCollision = new AABBCollisionDetection<AI, AI>(_enemyList);
-            var enemyProjectileToPlayerCollision = new AABBCollisionDetection<Projectile,Player>(_enemyProjectileList);
+            var enemyProjectileToPlayerCollision = new AABBCollisionDetection<Projectile, Player>(_enemyProjectileList);
 
             playerEnemyCollision.DetectCollision(_player, (enemy, player) =>
             {
@@ -278,7 +300,7 @@ namespace Game_Engine.States
             if (_player.Position.Y < PLAYERBOUNDSLEFT_Y)
             {
 
-                _player.Position = new Vector2( _player.Position.X, PLAYERBOUNDSLEFT_Y);
+                _player.Position = new Vector2(_player.Position.X, PLAYERBOUNDSLEFT_Y);
             }
             if (_player.Position.Y > PLAYERBOUNDSRIGHT_Y)
             {
@@ -286,7 +308,7 @@ namespace Game_Engine.States
             }
         }
 
-        private List<T> Clean<T>(List<T> someObjectList,Func<T,bool> predicate, Action<T> action) where T: BaseGameObject
+        private List<T> Clean<T>(List<T> someObjectList, Func<T, bool> predicate, Action<T> action) where T : BaseGameObject
         {
             List<T> newList = new List<T>();
             foreach (var obj in someObjectList)
@@ -331,39 +353,47 @@ namespace Game_Engine.States
             {
                 _debugDetails.Update(gameTime);
             }
-            HandleInput(gameTime);
-            InputManager.Update();
-            _mapRendered.Update(gameTime);
-            DetectCollisions(gameTime);
-
-            if (InputManager.MouseX < _player.Position.X)
+            if (_player.IsAlive)
             {
-                _player.PlayerOrientation = SpriteEffects.FlipHorizontally;
+                HandleInput(gameTime);
+                InputManager.Update();
+                _mapRendered.Update(gameTime);
+                DetectCollisions(gameTime);
+
+                if (InputManager.MouseX < _player.Position.X)
+                {
+                    _player.PlayerOrientation = SpriteEffects.FlipHorizontally;
+                }
+                else
+                {
+                    _player.PlayerOrientation = SpriteEffects.None;
+                }
+
+                foreach (var enemy in _enemyList)
+                {
+                    enemy.Update(gameTime, _player.Position);
+                }
+                _waveSystem.Update(gameTime, _enemyList.Count);
+
+                foreach (var gameObject in _gameObjectsList)
+                {
+                    gameObject.Update(gameTime);
+                }
+
+                _playerProjectilesList = Clean<Projectile>(_playerProjectilesList, ProjectilePredicate, obj =>
+                {
+                    RemoveGameObject(obj);
+                });
+
+                _enemyList = Clean<AI>(_enemyList, EnemyPredicate, enemy =>
+                {
+                    RemoveGameObject(enemy);
+                });
             }
             else
             {
-                _player.PlayerOrientation = SpriteEffects.None;
+                AddGameObject(_gameOverText);
             }
-
-            foreach (var enemy in _enemyList)
-            {
-                enemy.Update(gameTime, _player.Position);
-            }
-            _waveSystem.Update(gameTime,_enemyList.Count);
-
-            foreach (var gameObject in _gameObjectsList)
-            {
-                gameObject.Update(gameTime);
-            }
-
-            _playerProjectilesList = Clean<Projectile>(_playerProjectilesList, ProjectilePredicate, obj => {
-                RemoveGameObject(obj);
-            });
-
-            _enemyList = Clean<AI>(_enemyList, EnemyPredicate, enemy => {
-                RemoveGameObject(enemy);
-            });
-
         }
 
         public override void Draw(SpriteBatch _spriteBatch)

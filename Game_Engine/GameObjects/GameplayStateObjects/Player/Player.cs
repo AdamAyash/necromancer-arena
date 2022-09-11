@@ -16,7 +16,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
         private int _hitAt;
 
         private Animation _currentAnimation;
-
+        
         public List<Animation> Animations { get; set; }
         public int PlayerHealth { get; set; }
         public SpriteEffects PlayerOrientation { private get; set; }
@@ -32,24 +32,28 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
                     _position.Y + (_currentAnimation.AnimationTexture.Height / 2));
             }
         }
+
+        public bool IsAlive
+        {
+            get
+            {
+                return _isAlive;
+            }
+        }
         public Player(List<Animation> animationList)
         {
             Animations = animationList;
             _currentAnimation = Animations[0];
-            _isAlive = true;
+            _isAlive = false;
             PlayerOrientation = SpriteEffects.None;
-            AddBoundingBoxes(new Engine.GameObjects.BoundingBox(Position, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height));
             PlayerHealth = 6;
-            playedTakesDamageInterval = TimeSpan.FromSeconds(2);
+            playedTakesDamageInterval = TimeSpan.FromSeconds(1);
             lastTimePlayedGotDamaged = 0;
             _isAlive = true;
             _hitAt = 100;
+            AddBoundingBoxes(new Engine.GameObjects.BoundingBox(Position, _currentAnimation.CurrentFrame.Width, _currentAnimation.CurrentFrame.Height));
         }
-        public void PlayerMoveLeft()
-        {
-            Position = new Vector2(_position.X - PLAYER_SPEED, _position.Y);
-        }
-
+        
         public void TakeDamage(IGameObjectWidthDamage o, GameTime gameTime)
         {
             if ((float)gameTime.TotalGameTime.TotalSeconds - lastTimePlayedGotDamaged > playedTakesDamageInterval.TotalSeconds)
@@ -58,6 +62,16 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
                 PlayerHealth -= o.Damage;
                 _hitAt = 0;
             }
+
+            if (PlayerHealth <= 0)
+            {
+                _isAlive = true;
+            }
+        }
+
+        public void PlayerMoveLeft()
+        {
+            Position = new Vector2(_position.X - PLAYER_SPEED, _position.Y);
         }
 
         public void PlayerMoveRight()

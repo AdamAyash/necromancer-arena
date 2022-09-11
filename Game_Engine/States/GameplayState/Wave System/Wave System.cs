@@ -48,13 +48,17 @@ namespace Game_Engine.States
                         case EnemyTypes.OldWizard:
                             OnSpawnEnemies.Invoke(EnemyTypes.OldWizard, new GameplayStateEvents.SpawnOldWizard());
                             break;
+                        case EnemyTypes.Zombie:
+                            OnSpawnEnemies.Invoke(EnemyTypes.Zombie, new GameplayStateEvents.SpawnZombie());
+                            break;
                     }
                     _enemiesSpawned++;
                 }
-                else if (_enemiesSpawned > _currentWaveListEnemiesCount - 1 && _currentWaveListIndex + 1 <= _currentWaveListCount - 1)
+                else if ( _currentWaveListIndex + 1 <= _currentWaveListCount - 1)
                 {
                     _currentWaveListIndex++;
                     _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
+                    _enemiesSpawned = 0;
                 }
                 else
                 {
@@ -78,6 +82,10 @@ namespace Game_Engine.States
                 _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
                 OnDisplayText?.Invoke(this, _waveIndex + 1);
                 Console.WriteLine("Wave Switched");
+            }
+            else
+            {
+
             }
         }
        

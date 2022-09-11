@@ -51,6 +51,18 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle.png
 
+#begin Assets/Animations/Enemies/Zombie/zombie_Run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Animations/Enemies/Zombie/zombie_Run.png
+
 #begin Assets/Animations/Player/Idle/Player_Idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -93,6 +105,13 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Assets/Fonts/Base/BaseFont.spritefont
+
+#begin Assets/Fonts/GameOver/GameOverText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Assets/Fonts/GameOver/GameOverText.spritefont
 
 #begin Assets/Fonts/Wave_Switch/WaveSwitch.spritefont
 /importer:FontDescriptionImporter

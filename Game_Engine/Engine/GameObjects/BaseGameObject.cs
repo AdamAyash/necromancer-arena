@@ -52,7 +52,6 @@ namespace Game_Engine.Engine.GameObjects
             {
                 var deltaX = value.X - _position.X;
                 var deltaY = value.Y - _position.Y;
-                _position = value;
 
                 foreach (var bb in _boundingBoxes)
                 {
@@ -63,6 +62,8 @@ namespace Game_Engine.Engine.GameObjects
                 {
                     cc.Center = new Vector2((_position.X + deltaX), (Position.Y + deltaY));
                 }
+                _position = value;
+
             }
         }
 

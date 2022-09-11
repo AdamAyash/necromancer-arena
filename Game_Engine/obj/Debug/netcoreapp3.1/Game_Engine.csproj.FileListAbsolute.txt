@@ -67,3 +67,7 @@ C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Cont
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\PlayerHealth\hearths_4.xnb
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\PlayerHealth\hearths_6.xnb
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\PlayerHealth\heaths_5.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Fonts\GameOver\GameOverText.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Fonts\GameOver\GothicPixels.ttf
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Fonts\Wave_Switch\GothicPixels.ttf
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Animations\Enemies\Zombie\zombie_Run.xnb

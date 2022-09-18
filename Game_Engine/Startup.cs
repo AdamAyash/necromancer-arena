@@ -1,6 +1,7 @@
 ﻿using System;
 using Game_Engine.States;
 using Game_Engine.States.DevelopmentState;
+using Game_Engine.States.MainMenuState;
 
 namespace Game_Engine
 {
@@ -9,7 +10,7 @@ namespace Game_Engine
         [STAThread]
         static void Main()
         {
-            using (var game = new Core(new GameplayState()))
+            using (var game = new Core(new MainMenuState()))
                 game.Run();
         }
     }

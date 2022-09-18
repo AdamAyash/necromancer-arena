@@ -11,9 +11,9 @@ namespace Game_Engine.GameObjects.GameplayStateTextObjects
     {
         private float _opacity;
         private float _opacityFadingRate;
-        public DisplayText(SpriteFont font, int waveIndex, Vector2 position) : base(font)
+        public DisplayText(SpriteFont font, string text, Vector2 position) : base(font)
         {
-            Text = "Wave " + waveIndex;
+            Text = text;
             Position = position;
             _opacity = 40;
             _opacityFadingRate = 0.1f;

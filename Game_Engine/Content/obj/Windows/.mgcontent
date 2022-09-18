@@ -4,6 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/Bosses/DemonBoss/demon_fire.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/Bosses/DemonBoss/DemonBoss_Run.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/Demon/Demon_Run.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/OldWizard/Arcane_Spell.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle.png</File>
@@ -11,12 +13,18 @@
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Idle/Player_Idle.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Spells/Fireball_Spell.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Animations/Player/Spells/Necromancer_Spell.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Audio/Effects/BossFight.wav</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Audio/Effects/Hit.wav</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Audio/Effects/Shoot.wav</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Audio/Soundtracks/MainSoundtrack.wav</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/Base/BaseFont.spritefont</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/GameOver/GameOverText.spritefont</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Fonts/Wave_Switch/WaveSwitch.spritefont</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Map.tmx</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Tileset.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/Empty.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/flask_big_red.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/MainMenu/mainMenu.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_0.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_1.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_2.png</File>
@@ -26,6 +34,14 @@
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/heaths_5.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -1,7 +1,10 @@
-﻿using Game_Engine.Engine.GameObjects;
+﻿using Game_Engine.Engine.Audio;
+using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
 using System;
 using System.Collections.Generic;
@@ -13,6 +16,8 @@ namespace Game_Engine.Engine.States
     {
         private const string EMPTY_TEXTURE = "Assets/Sprites/Empty";
         private const string EMPTY_FONT = "Assets/Fonts/Base/BaseFont";
+
+        protected SoundManager _soundManager = new SoundManager();
 
         protected List<BaseGameObject> _gameObjectsList;
         protected GraphicsDevice _graphicsDevice;
@@ -55,6 +60,15 @@ namespace Game_Engine.Engine.States
             }
         }
 
+        protected Song LoadSong(string songName)
+        {
+            return _contentManager.Load<Song>(songName);
+        }
+
+        protected SoundEffect LoadSoundEffect(string soudnEffectName)
+        {
+            return _contentManager.Load<SoundEffect>(soudnEffectName);
+        }
         protected SpriteFont LoadSpriteFont(string fontName)
         {
             try
@@ -99,6 +113,10 @@ namespace Game_Engine.Engine.States
             _gameObjectsList.Remove(gameObject);
         }
 
+        protected void OnNotify(BaseGameStateEvent gameEvent)
+        {
+            _soundManager.OnNotify(gameEvent);
+        }
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
             _gameObjectsList.OrderBy(o => o.zIndex);

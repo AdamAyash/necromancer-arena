@@ -4,18 +4,22 @@ using Game_Engine.Engine.Animation;
 using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Game_Engine.GameObjects.Potions;
 
 namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 {
     public class Player : BaseGameObject
     {
         private const float PLAYER_SPEED = 4.5f;
+        private const int MAX_PLAYER_HEALTH = 6;
         private const  int CUURENT_ANIMATION_WIDTH = 48;
 
         private bool _isAlive;
         private int _hitAt;
 
         private Animation _currentAnimation;
+
+        public event EventHandler OnPlayerHit;
         
         public List<Animation> Animations { get; set; }
         public int PlayerHealth { get; set; }
@@ -58,6 +62,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
         {
             if ((float)gameTime.TotalGameTime.TotalSeconds - lastTimePlayedGotDamaged > playedTakesDamageInterval.TotalSeconds)
             {
+                OnPlayerHit.Invoke(this,EventArgs.Empty);
                 lastTimePlayedGotDamaged = (float)gameTime.TotalGameTime.TotalSeconds;
                 PlayerHealth -= o.Damage;
                 _hitAt = 0;
@@ -65,7 +70,19 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Player
 
             if (PlayerHealth <= 0)
             {
-                _isAlive = true;
+                _isAlive = false;
+            }
+        }
+
+        public void PlayerHeal(HealthPotion potion)
+        {
+            if (PlayerHealth < MAX_PLAYER_HEALTH)
+            {
+                PlayerHealth += potion.Health;
+            }
+            if (PlayerHealth >= MAX_PLAYER_HEALTH)
+            {
+                PlayerHealth = MAX_PLAYER_HEALTH;
             }
         }
 

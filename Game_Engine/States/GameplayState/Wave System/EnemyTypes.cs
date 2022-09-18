@@ -5,5 +5,6 @@
         DemonEnemy,
         OldWizard,
         Zombie,
+        DemonBoss
     }
 }

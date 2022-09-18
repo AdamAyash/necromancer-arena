@@ -9,5 +9,13 @@ namespace Game_Engine.States
         public class SpawnOldWizard : GameplayStateEvents { }
 
         public class SpawnZombie : GameplayStateEvents { }
+
+        public class SpawnDemonBoss : GameplayStateEvents { }
+
+        public class EntityHit : GameplayStateEvents { }
+
+        public class BossFight : GameplayStateEvents { }
+
+        public class PlayerShoots : GameplayStateEvents { }
     }
 }

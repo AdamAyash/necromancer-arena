@@ -17,6 +17,8 @@ using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
 using Game_Engine.GameObjects.GameplayStateTextObjects;
 using Game_Engine.GameObjects.UI;
 using Game_Engine.GameObjects.GameplayStateObjects.Enemies.Zombie;
+using Game_Engine.GameObjects.GameplayStateObjects.Enemies.Bosses;
+using Game_Engine.GameObjects.Potions;
 
 namespace Game_Engine.States
 {
@@ -30,6 +32,10 @@ namespace Game_Engine.States
         private const string DEMON_RUN_ANIMATION = "Assets/Animations/Enemies/Demon/Demon_Run";
         private const string OLD_WIZARD_IDLE_ANIMATION = "Assets/Animations/Enemies/OldWizard/Old_Wizard_Idle";
         private const string ZOMBIE_IDLE_ANIMATION = "Assets/Animations/Enemies/Zombie/zombie_Run";
+        private const string DEMONBOSS_RUN_ANIMATION = "Assets/Animations/Enemies/Bosses/DemonBoss/DemonBoss_Run";
+        private const string DEMONBOSS_SPELL_ANIMATION = "Assets/Animations/Enemies/Bosses/DemonBoss/demon_fire";
+
+        private const string HEALTH_POTION_TEXTURE = "Assets/Sprites/flask_big_red";
 
         private const string DISPAY_TEXT_FONT = "Assets/Fonts/Wave_Switch/WaveSwitch";
         private const string GAMEOVER_TEXT_FONT = "Assets/Fonts/GameOver/GameOverText";
@@ -42,6 +48,11 @@ namespace Game_Engine.States
         private const string UI_PLAYERHEALTH_5 = "Assets/UI/PlayerHealth/heaths_5";
         private const string UI_PLAYERHEALTH_6 = "Assets/UI/PlayerHealth/hearths_6";
 
+        private const string MAIN_SOUNDTRACK = "Assets/Audio/Soundtracks/MainSoundtrack";
+        private const string HIT_SOUNDEFFECT = "Assets/Audio/Effects/Hit";
+        private const string PLAYER_SHOOT_SOUNDEFFECT = "Assets/Audio/Effects/Shoot";
+        private const string BOSS_FIGHT_SOUNDEFFECT = "Assets/Audio/Effects/BossFight";
+
         private const int PLAYERBOUNDSLEFT_X = 60;
         private const int PLAYERBOUNDSRIGHT_X = 1100;
         private const int PLAYERBOUNDSLEFT_Y = 60;
@@ -51,10 +62,13 @@ namespace Game_Engine.States
 
         private const int randomEnemySpawnOffset = 96;
 
+        private Texture2D _healthPotionTexture;
+
         private SpriteFont _displayTextFont;
 
         private Animation _plyerProjectileAnimation;
         private Animation _oldWizardProjectileAnimation;
+        private Animation _demonBossProjectileAnimation;
 
         private RandomNumberGenerator _rnd;
 
@@ -62,6 +76,7 @@ namespace Game_Engine.States
         private List<Animation> _demonAnimationList;
         private List<Animation> _oldWizardAnimationList;
         private List<Animation> _zombieAnimationList;
+        private List<Animation> _demonBossAnimationList;
 
         private Wave_System _waveSystem;
         private List<Wave> _waveList;
@@ -71,6 +86,8 @@ namespace Game_Engine.States
 
         private List<Projectile> _playerProjectilesList;
         private List<Projectile> _enemyProjectileList;
+
+        private List<HealthPotion> _healthPotionsList;
 
         private List<AI> _enemyList;
 
@@ -128,14 +145,16 @@ namespace Game_Engine.States
             _playerAnimationList.Add(new Animation(LoadTexture(PLAYER_IDLE_ANIMATION), 4, 8));
             _player = new Player(_playerAnimationList);
             _player.Position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
-
+            _player.OnPlayerHit += _player_OnPlayerHit;
             AddGameObject(_player);
 
+            _healthPotionsList = new List<HealthPotion>();
             _playerProjectilesList = new List<Projectile>();
             _plyerProjectileAnimation = new Animation(LoadTexture(PLAYER_PROJECTILE_ANIMATION), 29, 40);
 
             _enemyProjectileList = new List<Projectile>();
             _oldWizardProjectileAnimation = new Animation(LoadTexture(OLD_WIZARD_PROJECTILE_ANIMATION), 28, 40);
+            _demonBossProjectileAnimation = new Animation(LoadTexture(DEMONBOSS_SPELL_ANIMATION), 30, 40);
 
             _enemyList = new List<AI>();
 
@@ -148,32 +167,66 @@ namespace Game_Engine.States
             _zombieAnimationList = new List<Animation>();
             _zombieAnimationList.Add(new Animation(LoadTexture(ZOMBIE_IDLE_ANIMATION), 4, 8));
 
+            _demonBossAnimationList = new List<Animation>();
+            _demonBossAnimationList.Add(new Animation(LoadTexture(DEMONBOSS_RUN_ANIMATION), 4, 8));
+
+            _healthPotionTexture = LoadTexture(HEALTH_POTION_TEXTURE);
+
+            var mainSoundtrack = LoadSoundEffect(MAIN_SOUNDTRACK).CreateInstance();
+            mainSoundtrack.Volume = 0.5f;
+            _soundManager.SetSoundtrack(new List<Microsoft.Xna.Framework.Audio.SoundEffectInstance>() { mainSoundtrack });
+
+            var hitSoundEffect = LoadSoundEffect(HIT_SOUNDEFFECT);
+            var playerShootSoundEffect = LoadSoundEffect(PLAYER_SHOOT_SOUNDEFFECT);
+            var bossFightSoundEffect = LoadSoundEffect(BOSS_FIGHT_SOUNDEFFECT);
+
+            _soundManager.RegisterSound(new GameplayStateEvents.EntityHit(), hitSoundEffect);
+            _soundManager.RegisterSound(new GameplayStateEvents.PlayerShoots(), playerShootSoundEffect);
+            _soundManager.RegisterSound(new GameplayStateEvents.BossFight(), bossFightSoundEffect);
+
             _displayTextFont = LoadSpriteFont(DISPAY_TEXT_FONT);
             _gameOverText = new GameOverText(LoadSpriteFont(GAMEOVER_TEXT_FONT), new Vector2(_graphicsDevice.Viewport.Width / 2 - 200, 100));
 
+
             _waveList = new List<Wave>()
             {
+                new Wave(3),
                 new Wave(2),
-                new Wave(2)
+                new Wave(2),
+                new Wave(2),
             };
             _waveList[0].EnemyTypesList = new List<(EnemyTypes, int)>
             {
-                (EnemyTypes.DemonEnemy,1),
-                //(EnemyTypes.DemonEnemy,4),
-                (EnemyTypes.Zombie,2),
-                (EnemyTypes.DemonEnemy,1),
-                (EnemyTypes.DemonEnemy,1),
-                (EnemyTypes.DemonEnemy,1),
-                (EnemyTypes.DemonEnemy,1),
+                (EnemyTypes.DemonEnemy,10),
+
             };
             _waveList[1].EnemyTypesList = new List<(EnemyTypes, int)>
             {
                 (EnemyTypes.OldWizard,2),
+                (EnemyTypes.DemonEnemy,1),
+                (EnemyTypes.OldWizard,3),
+                 (EnemyTypes.DemonEnemy,2),
+                (EnemyTypes.OldWizard,3),
+                (EnemyTypes.DemonEnemy,4),
+           };
+           _waveList[2].EnemyTypesList = new List<(EnemyTypes, int)>
+            {
+                (EnemyTypes.Zombie,1),
+               (EnemyTypes.OldWizard,3),
+                (EnemyTypes.DemonEnemy,2),
+                  (EnemyTypes.Zombie,2),
+                (EnemyTypes.OldWizard,3),
+                 (EnemyTypes.DemonEnemy,4),
+            };
+            _waveList[3].EnemyTypesList = new List<(EnemyTypes, int)>
+            {
+                (EnemyTypes.DemonBoss,1)
             };
             _waveSystem = new Wave_System(_waveList);
-            _waveSystem_OnDisplayText(this, 1);
+            _waveSystem_OnDisplayText(this,"Wave 1");
             _waveSystem.OnSpawnEnemies += _waveSystem_OnSpawnEnemies;
             _waveSystem.OnDisplayText += _waveSystem_OnDisplayText;
+            _waveSystem.OnBossFightSoudnEffect += _waveSystem_OnBossFightSoudnEffect;
 
             _map = LoadTiledMap(MAP_ASSET_NAME);
             _mapRendered = new TiledMapRenderer(_graphicsDevice, _map);
@@ -197,7 +250,17 @@ namespace Game_Engine.States
 
         }
 
-        private void _waveSystem_OnDisplayText(object sender, int e)
+        private void _waveSystem_OnBossFightSoudnEffect(object sender, EventArgs e)
+        {
+            _soundManager.OnNotify(new GameplayStateEvents.BossFight());
+        }
+
+        private void _player_OnPlayerHit(object sender, EventArgs e)
+        {
+            _soundManager.OnNotify(new GameplayStateEvents.EntityHit());
+        }
+
+        private void _waveSystem_OnDisplayText(object sender, string e)
         {
             var waveText = new DisplayText(_displayTextFont, e, new Vector2(550, 70));
             AddGameObject(waveText);
@@ -210,6 +273,7 @@ namespace Game_Engine.States
             {
                 var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
                 var demonEnemy = new Demon_Enemy(_demonAnimationList, randomEnemyPosition);
+                demonEnemy.OnEnemyDeath += AI_OnEnemyDeath;
                 _enemyList.Add(demonEnemy);
                 AddGameObject(demonEnemy);
             }
@@ -218,6 +282,7 @@ namespace Game_Engine.States
                 var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
                 var oldWizardEnemy = new OldWizard_Enemy(_oldWizardAnimationList, randomEnemyPosition);
                 oldWizardEnemy.OnEnemyShoot += OldWizardEnemy_OnEnemyShoot;
+                oldWizardEnemy.OnEnemyDeath += AI_OnEnemyDeath;
                 _enemyList.Add(oldWizardEnemy);
                 AddGameObject(oldWizardEnemy);
             }
@@ -225,9 +290,40 @@ namespace Game_Engine.States
             {
                 var randomEnemyPosition = new Vector2(_rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Width - randomEnemySpawnOffset), _rnd.GenerateRandomInteger(randomEnemySpawnOffset, _graphicsDevice.Viewport.Height - randomEnemySpawnOffset));
                 var zombie = new Zombie(_zombieAnimationList, randomEnemyPosition);
+                zombie.OnEnemyDeath += AI_OnEnemyDeath;
                 _enemyList.Add(zombie);
                 AddGameObject(zombie);
             }
+            else if (e is GameplayStateEvents.SpawnDemonBoss)
+            {
+                var centerPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
+                var demonBoss = new DemonBoss(_demonBossAnimationList, centerPosition);
+                demonBoss.OnBossMassShooting += DemonBoss_OnBossMassShooting;
+                _enemyList.Add(demonBoss);
+                AddGameObject(demonBoss);
+            }
+        }
+
+        private void AI_OnEnemyDeath(object sender, Vector2 e)
+        {
+            HealthPotion healthPotion = new HealthPotion(_healthPotionTexture, e);
+            _healthPotionsList.Add(healthPotion);
+            AddGameObject(healthPotion);
+        }
+
+        private void DemonBoss_OnBossMassShooting(object sender, Vector2 e)
+        {
+            int numberOfProjectiles = 20;
+            var angle = ((Math.PI * 2) / numberOfProjectiles);
+            for (int i = 0; i < numberOfProjectiles; i++)
+            {
+
+                var targetPosition = new Vector2((float)Math.Cos(angle * i), (float)Math.Sin(angle * i));
+                var projectile = new Projectile(_demonBossProjectileAnimation, targetPosition, e, true);
+                _enemyProjectileList.Add(projectile);
+                AddGameObject(projectile);
+            }
+            _soundManager.OnNotify(new GameplayStateEvents.PlayerShoots());
         }
 
         private void OldWizardEnemy_OnEnemyShoot(object sender, Vector2 e)
@@ -235,6 +331,7 @@ namespace Game_Engine.States
             var projectile = new Projectile(_oldWizardProjectileAnimation, e, _player.OriginPosition);
             _enemyProjectileList.Add(projectile);
             AddGameObject(projectile);
+            _soundManager.OnNotify(new GameplayStateEvents.PlayerShoots());
         }
 
         private void DetectCollisions(GameTime gameTime)
@@ -243,12 +340,15 @@ namespace Game_Engine.States
             var enemyProjectileCollision = new AABBCollisionDetection<Projectile, AI>(_playerProjectilesList);
             var enemyToEnemyCollision = new AABBCollisionDetection<AI, AI>(_enemyList);
             var enemyProjectileToPlayerCollision = new AABBCollisionDetection<Projectile, Player>(_enemyProjectileList);
+            var playerToHealthPotionCollision = new AABBCollisionDetection<HealthPotion, Player>(_healthPotionsList);
 
             playerEnemyCollision.DetectCollision(_player, (enemy, player) =>
             {
-                player.TakeDamage(enemy, gameTime);
-                _playerHealth.PlayerHealthIndex = _player.PlayerHealth;
-                Console.WriteLine(player.PlayerHealth);
+                if (enemy.AttackMode)
+                {
+                    player.TakeDamage(enemy, gameTime);
+                    _playerHealth.PlayerHealthIndex = _player.PlayerHealth;
+                }
             });
 
 
@@ -258,6 +358,7 @@ namespace Game_Engine.States
                  {
                      enemy.JustHit(projectile);
                      projectile.IsActive = false;
+                     _soundManager.OnNotify(new GameplayStateEvents.EntityHit());
                  }
              });
 
@@ -270,6 +371,16 @@ namespace Game_Engine.States
             {
                 _player.TakeDamage(projectile, gameTime);
                 _playerHealth.PlayerHealthIndex = _player.PlayerHealth;
+                projectile.IsActive = false;
+                _soundManager.OnNotify(new GameplayStateEvents.EntityHit());
+            });
+
+            playerToHealthPotionCollision.DetectCollision(_player, (healthPotion, player) =>
+            {
+                _player.PlayerHeal(healthPotion);
+                _playerHealth.PlayerHealthIndex = _player.PlayerHealth;
+                healthPotion.IsActive = false;
+                _soundManager.OnNotify(new GameplayStateEvents.EntityHit());
             });
 
             KeepPlayerBounds();
@@ -278,6 +389,7 @@ namespace Game_Engine.States
         {
             if (gameTime.TotalGameTime.TotalSeconds - lastShotAt.TotalSeconds >= playerShootCooldown.TotalSeconds)
             {
+                _soundManager.OnNotify(new GameplayStateEvents.PlayerShoots());
                 var projectile = new Projectile(_plyerProjectileAnimation, _player.Position, mousePosition);
                 _playerProjectilesList.Add(projectile);
                 AddGameObject(projectile);
@@ -337,6 +449,16 @@ namespace Game_Engine.States
             return false;
         }
 
+        private bool PotionPredicate(HealthPotion potion)
+        {
+            if (!potion.IsActive)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private bool EnemyPredicate(AI enemy)
         {
             if (!enemy.IsAlive)
@@ -357,6 +479,7 @@ namespace Game_Engine.States
             {
                 HandleInput(gameTime);
                 InputManager.Update();
+                _soundManager.PlaySoundtrack();
                 _mapRendered.Update(gameTime);
                 DetectCollisions(gameTime);
 
@@ -380,15 +503,25 @@ namespace Game_Engine.States
                     gameObject.Update(gameTime);
                 }
 
-                _playerProjectilesList = Clean<Projectile>(_playerProjectilesList, ProjectilePredicate, obj =>
+                _playerProjectilesList = Clean<Projectile>(_playerProjectilesList, ProjectilePredicate, pro =>
                 {
-                    RemoveGameObject(obj);
+                    RemoveGameObject(pro);
                 });
 
                 _enemyList = Clean<AI>(_enemyList, EnemyPredicate, enemy =>
                 {
                     RemoveGameObject(enemy);
                 });
+
+                _healthPotionsList = Clean<HealthPotion>(_healthPotionsList, PotionPredicate, potion =>
+                {
+                    RemoveGameObject(potion);
+                });
+                _enemyProjectileList = Clean<Projectile>(_enemyProjectileList, ProjectilePredicate, pro =>
+                 {
+                     RemoveGameObject(pro);
+                 });
+                    
             }
             else
             {

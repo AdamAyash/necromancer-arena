@@ -15,6 +15,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Assets/Animations/Enemies/Bosses/DemonBoss/demon_fire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Animations/Enemies/Bosses/DemonBoss/demon_fire.png
+
+#begin Assets/Animations/Enemies/Bosses/DemonBoss/DemonBoss_Run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Animations/Enemies/Bosses/DemonBoss/DemonBoss_Run.png
+
 #begin Assets/Animations/Enemies/Demon/Demon_Run.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -99,6 +123,30 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Animations/Player/Spells/Necromancer_Spell.png
 
+#begin Assets/Audio/Effects/BossFight.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Effects/BossFight.wav
+
+#begin Assets/Audio/Effects/Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Effects/Hit.wav
+
+#begin Assets/Audio/Effects/Shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Effects/Shoot.wav
+
+#begin Assets/Audio/Soundtracks/MainSoundtrack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Soundtracks/MainSoundtrack.wav
+
 #begin Assets/Fonts/Base/BaseFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -148,6 +196,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Sprites/Empty.png
+
+#begin Assets/Sprites/flask_big_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Sprites/flask_big_red.png
+
+#begin Assets/UI/MainMenu/mainMenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/UI/MainMenu/mainMenu.png
 
 #begin Assets/UI/PlayerHealth/hearths_0.png
 /importer:TextureImporter

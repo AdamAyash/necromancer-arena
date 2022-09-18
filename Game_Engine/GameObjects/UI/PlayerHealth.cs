@@ -7,12 +7,22 @@ namespace Game_Engine.GameObjects.UI
 {
     public class PlayerHealth : BaseGameObject
     {
+        private const int MAX_HEALTH = 6;
+
         private Texture2D[] _playerHealthTextures;
         public int PlayerHealthIndex 
         {
             set
             {
-                if (value >= 0)
+                if (value >= 6)
+                {
+                    _objectTexture = _playerHealthTextures[MAX_HEALTH];
+                }
+                else if(value <= 0)
+                {
+                    _objectTexture = _playerHealthTextures[0];
+                }
+                else if(value > 0 || value < MAX_HEALTH)
                 {
                     _objectTexture = _playerHealthTextures[value];
                 }

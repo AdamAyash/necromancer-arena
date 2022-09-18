@@ -12,12 +12,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Assets\Animations\Enemies\Bosses\DemonBoss\DemonBoss_Run.xnb" />
+    <None Remove="Content\Assets\Animations\Enemies\Bosses\DemonBoss\demon_fire.xnb" />
     <None Remove="Content\Assets\Animations\Enemies\Demon\Demon_Run.xnb" />
     <None Remove="Content\Assets\Animations\Enemies\OldWizard\Arcane_Spell.xnb" />
     <None Remove="Content\Assets\Animations\Enemies\OldWizard\Old_Wizard_Idle.xnb" />
     <None Remove="Content\Assets\Animations\Enemies\Zombie\zombie_Run.xnb" />
     <None Remove="Content\Assets\Animations\Player\Idle\Player_Idle.xnb" />
     <None Remove="Content\Assets\Animations\Player\Spells\Necromancer_Spell.xnb" />
+    <None Remove="Content\Assets\Audio\Effects\BossFight.xnb" />
+    <None Remove="Content\Assets\Audio\Effects\Hit.xnb" />
+    <None Remove="Content\Assets\Audio\Effects\Shoot.xnb" />
+    <None Remove="Content\Assets\Audio\Soundtracks\MainSoundtrack.xnb" />
     <None Remove="Content\Assets\Fonts\Base\BaseFont.xnb" />
     <None Remove="Content\Assets\Fonts\GameOver\GameOverText.xnb" />
     <None Remove="Content\Assets\Fonts\GameOver\GothicPixels.ttf" />
@@ -27,6 +33,8 @@
     <None Remove="Content\Assets\Maps\Tileset.xnb" />
     <None Remove="Content\Assets\Sprites\Empty.png" />
     <None Remove="Content\Assets\Sprites\Empty.xnb" />
+    <None Remove="Content\Assets\Sprites\flask_big_red.xnb" />
+    <None Remove="Content\Assets\UI\MainMenu\mainMenu.xnb" />
     <None Remove="Content\Assets\UI\PlayerHealth\hearths_0.xnb" />
     <None Remove="Content\Assets\UI\PlayerHealth\hearths_1.xnb" />
     <None Remove="Content\Assets\UI\PlayerHealth\hearths_2.xnb" />
@@ -36,6 +44,12 @@
     <None Remove="Content\Assets\UI\PlayerHealth\heaths_5.xnb" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Assets\Animations\Enemies\Bosses\DemonBoss\DemonBoss_Run.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Animations\Enemies\Bosses\DemonBoss\demon_fire.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Assets\Animations\Enemies\Demon\Demon_Run.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -52,6 +66,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\Animations\Player\Spells\Necromancer_Spell.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Audio\Effects\BossFight.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Audio\Effects\Hit.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Audio\Effects\Shoot.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Audio\Soundtracks\MainSoundtrack.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\Fonts\Base\BaseFont.xnb">
@@ -79,6 +105,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\Sprites\Empty.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\Sprites\flask_big_red.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\UI\MainMenu\mainMenu.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\UI\PlayerHealth\hearths_0.xnb">

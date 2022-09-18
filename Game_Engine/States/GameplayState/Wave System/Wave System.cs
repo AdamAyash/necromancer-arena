@@ -24,7 +24,9 @@ namespace Game_Engine.States
 
         public event EventHandler<BaseGameStateEvent> OnSpawnEnemies;
 
-        public event EventHandler<int> OnDisplayText;
+        public event EventHandler<string> OnDisplayText;
+        public event EventHandler OnBossFightSoudnEffect;
+        public event EventHandler OnGameOver;
         public Wave_System(List<Wave> waves)
         {
             _waves = waves;
@@ -51,10 +53,13 @@ namespace Game_Engine.States
                         case EnemyTypes.Zombie:
                             OnSpawnEnemies.Invoke(EnemyTypes.Zombie, new GameplayStateEvents.SpawnZombie());
                             break;
+                        case EnemyTypes.DemonBoss:
+                            OnSpawnEnemies.Invoke(EnemyTypes.DemonBoss, new GameplayStateEvents.SpawnDemonBoss());
+                            break;
                     }
                     _enemiesSpawned++;
                 }
-                else if ( _currentWaveListIndex + 1 <= _currentWaveListCount - 1)
+                else if (_currentWaveListIndex + 1 <= _currentWaveListCount - 1)
                 {
                     _currentWaveListIndex++;
                     _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
@@ -80,14 +85,22 @@ namespace Game_Engine.States
                 _currentWaveListIndex = 0;
                 _enemiesSpawned = 0;
                 _currentWaveListEnemiesCount = _currentWave.EnemyTypesList[_currentWaveListIndex].Item2;
-                OnDisplayText?.Invoke(this, _waveIndex + 1);
-                Console.WriteLine("Wave Switched");
+                if (_waveIndex == _waves.Count - 1)
+                {
+                    OnBossFightSoudnEffect?.Invoke(this, EventArgs.Empty);
+                    OnDisplayText?.Invoke(this, $"Boss Fight");
+                }
+                else
+                {
+                    OnDisplayText?.Invoke(this, $"Wave {_waveIndex + 1}");
+                }
             }
             else
             {
-
+                OnGameOver?.Invoke(this, EventArgs.Empty);
             }
         }
+
        
     }
 }

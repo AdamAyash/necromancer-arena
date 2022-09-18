@@ -71,3 +71,11 @@ C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Cont
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Fonts\GameOver\GothicPixels.ttf
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Fonts\Wave_Switch\GothicPixels.ttf
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Animations\Enemies\Zombie\zombie_Run.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Animations\Enemies\Bosses\DemonBoss\DemonBoss_Run.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Animations\Enemies\Bosses\DemonBoss\demon_fire.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Sprites\flask_big_red.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Soundtracks\MainSoundtrack.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Effects\BossFight.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Effects\Hit.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Effects\Shoot.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\MainMenu\mainMenu.xnb

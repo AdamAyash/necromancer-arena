@@ -4,6 +4,8 @@ using Game_Engine.Engine.Animation;
 using Game_Engine.Engine.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
 using Game_Engine.GameObjects.GameplayStateObjects.Projectiles;
+using Game_Engine.Engine.Common;
+using System;
 
 namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 {
@@ -13,13 +15,17 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
         private float _falldownSpeed;
         private float _falldownAcceleration;
 
+        private RandomNumberGenerator _rnd;
+
         protected float _speed;
 
-        private int _hitAt;
+        protected int _hitAt;
 
         private float _opacity;
         private float _opacityFadingRate;
 
+        private int minDropChance;
+        private int maxDropChance;
 
         public List<Animation> _animations;
         protected Animation _currentAnimation;
@@ -30,7 +36,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
 
         private SpriteEffects _orinetation;
 
-
+        public event EventHandler<Vector2> OnEnemyDeath;
         public int Health { get; set; }
 
         public bool IsAlive { get; set; }
@@ -77,6 +83,9 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
             _falldownSpeed = 5.5f;
             _falldownAcceleration = 0.1f;
             _hitAt = 100;
+            _rnd = new RandomNumberGenerator();
+            minDropChance = 0;
+            maxDropChance = 100;
         }
 
         public virtual void Update(GameTime gameTime, Vector2 playerPosition)
@@ -87,6 +96,11 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
                 _opacity -= _opacityFadingRate;
                 if (_opacity <= 0)
                 {
+                   var dropChance = _rnd.GenerateRandomInteger(minDropChance,maxDropChance);
+                    if (dropChance >= 90)
+                    {
+                        OnEnemyDeath?.Invoke(this, _position);
+                    }
                     IsAlive = false;
                 }
 
@@ -114,7 +128,7 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Enemies
             }
         }
 
-        public void JustHit(IGameObjectWidthDamage o)
+        public virtual void JustHit(IGameObjectWidthDamage o)
         {
             Projectile projectile = (Projectile)o;
             if (projectile.IsActive)

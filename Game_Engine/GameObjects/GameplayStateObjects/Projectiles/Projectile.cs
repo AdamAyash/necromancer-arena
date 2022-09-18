@@ -9,8 +9,10 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Projectiles
     public class Projectile : BaseGameObject, IGameObjectWidthDamage
     {
         private const float PROJECTILE_SPEED = 5.0f;
-        private const float RADIUS = 10f;
+        private const float RADIUS = 8f;
         private const int PLAYER_POSITION_OFFSET = 32;
+        private const int bossOffsetX = 95;
+        private const int bossOffsetY = 108;
 
         private Animation _animation;
         private Vector2 _targetPosition;
@@ -25,6 +27,20 @@ namespace Game_Engine.GameObjects.GameplayStateObjects.Projectiles
             _targetPosition = targetPosition;
             _origin = new Vector2(animation.CurrentFrame.Width / 2, animation.CurrentFrame.Height / 2);
             _direction = targetPosition - _position;
+            _direction.Normalize();
+            _angle = (float)Math.Atan2(_direction.Y, _direction.X);
+            IsActive = true;
+            Damage = 1;
+            AddCircleCollider(new Engine.GameObjects.Collision_Detection.CircleColider(_origin, RADIUS));
+        }
+
+        public Projectile(Animation animation, Vector2 targetPosition, Vector2 position, bool isBossProjectile)
+        {
+            _animation = animation;
+            Position = new Vector2(position.X + bossOffsetX, position.Y + bossOffsetY);
+            _targetPosition = targetPosition;
+            _origin = new Vector2(animation.CurrentFrame.Width / 2, animation.CurrentFrame.Height / 2);
+            _direction = targetPosition;
             _direction.Normalize();
             _angle = (float)Math.Atan2(_direction.Y, _direction.X);
             IsActive = true;

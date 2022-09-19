@@ -28,7 +28,7 @@ namespace Game_Engine
             IsMouseVisible = true;
             _graphics.PreferredBackBufferWidth = 1200;
             _graphics.PreferredBackBufferHeight = 720;
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = false;
             _graphics.ApplyChanges();
             SwichToNewState(beginingState);
 
@@ -72,7 +72,6 @@ namespace Game_Engine
                 var barWidth = (Window.ClientBounds.Width - presentWidth) / 2;
                 scaleRectangle = new Rectangle(barWidth, 0, presentWidth, Window.ClientBounds.Height);
             }
-
             return scaleRectangle;
         }
         private void SwichToNewState(BaseGameState newState)

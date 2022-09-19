@@ -78,4 +78,5 @@ C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Cont
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Effects\BossFight.xnb
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Effects\Hit.xnb
 C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\Audio\Effects\Shoot.xnb
-C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\MainMenu\mainMenu.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\MainMenu\mainMenuTitle.xnb
+C:\Users\Adam Ayash\Desktop\Game_Engine\Game_Engine\bin\Debug\netcoreapp3.1\Content\Assets\UI\MainMenu\Play.xnb

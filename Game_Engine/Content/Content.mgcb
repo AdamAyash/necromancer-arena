@@ -209,7 +209,7 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Sprites/flask_big_red.png
 
-#begin Assets/UI/MainMenu/mainMenu.png
+#begin Assets/UI/MainMenu/mainMenuTitle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -219,7 +219,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Assets/UI/MainMenu/mainMenu.png
+/build:Assets/UI/MainMenu/mainMenuTitle.png
+
+#begin Assets/UI/MainMenu/Play.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/UI/MainMenu/Play.png
 
 #begin Assets/UI/PlayerHealth/hearths_0.png
 /importer:TextureImporter

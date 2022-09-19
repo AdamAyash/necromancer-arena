@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
@@ -34,7 +34,10 @@
     <None Remove="Content\Assets\Sprites\Empty.png" />
     <None Remove="Content\Assets\Sprites\Empty.xnb" />
     <None Remove="Content\Assets\Sprites\flask_big_red.xnb" />
+    <None Remove="Content\Assets\UI\MainMenu\mainMenu.png" />
     <None Remove="Content\Assets\UI\MainMenu\mainMenu.xnb" />
+    <None Remove="Content\Assets\UI\MainMenu\mainMenuTitle.xnb" />
+    <None Remove="Content\Assets\UI\MainMenu\Play.xnb" />
     <None Remove="Content\Assets\UI\PlayerHealth\hearths_0.xnb" />
     <None Remove="Content\Assets\UI\PlayerHealth\hearths_1.xnb" />
     <None Remove="Content\Assets\UI\PlayerHealth\hearths_2.xnb" />
@@ -110,7 +113,10 @@
     <Content Include="Content\Assets\Sprites\flask_big_red.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Assets\UI\MainMenu\mainMenu.xnb">
+    <Content Include="Content\Assets\UI\MainMenu\mainMenuTitle.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Assets\UI\MainMenu\Play.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Assets\UI\PlayerHealth\hearths_0.xnb">

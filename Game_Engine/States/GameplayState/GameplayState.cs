@@ -204,19 +204,19 @@ namespace Game_Engine.States
             {
                 (EnemyTypes.OldWizard,2),
                 (EnemyTypes.DemonEnemy,1),
-                (EnemyTypes.OldWizard,3),
+               (EnemyTypes.OldWizard,3),
                  (EnemyTypes.DemonEnemy,2),
                 (EnemyTypes.OldWizard,3),
                 (EnemyTypes.DemonEnemy,4),
            };
            _waveList[2].EnemyTypesList = new List<(EnemyTypes, int)>
-            {
+           {
                 (EnemyTypes.Zombie,1),
                (EnemyTypes.OldWizard,3),
                 (EnemyTypes.DemonEnemy,2),
                   (EnemyTypes.Zombie,2),
                 (EnemyTypes.OldWizard,3),
-                 (EnemyTypes.DemonEnemy,4),
+                (EnemyTypes.DemonEnemy,4),
             };
             _waveList[3].EnemyTypesList = new List<(EnemyTypes, int)>
             {
@@ -227,6 +227,7 @@ namespace Game_Engine.States
             _waveSystem.OnSpawnEnemies += _waveSystem_OnSpawnEnemies;
             _waveSystem.OnDisplayText += _waveSystem_OnDisplayText;
             _waveSystem.OnBossFightSoudnEffect += _waveSystem_OnBossFightSoudnEffect;
+            _waveSystem.OnGameOver += _waveSystem_OnGameOver;
 
             _map = LoadTiledMap(MAP_ASSET_NAME);
             _mapRendered = new TiledMapRenderer(_graphicsDevice, _map);
@@ -248,6 +249,13 @@ namespace Game_Engine.States
             AddGameObject(_playerHealth);
             SetInputManager(new GameplayInputMapper());
 
+        }
+
+        private void _waveSystem_OnGameOver(object sender, EventArgs e)
+        {
+            var gameWinText = new GameOverText(LoadSpriteFont(GAMEOVER_TEXT_FONT), new Vector2(_graphicsDevice.Viewport.Width / 2 - 150, 100));
+            gameWinText.Text = "You Win!";
+            AddGameObject(gameWinText);
         }
 
         private void _waveSystem_OnBossFightSoudnEffect(object sender, EventArgs e)

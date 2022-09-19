@@ -24,7 +24,8 @@
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Maps/Tileset.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/Empty.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/Sprites/flask_big_red.png</File>
-    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/MainMenu/mainMenu.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/MainMenu/mainMenuTitle.png</File>
+    <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/MainMenu/Play.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_0.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_1.png</File>
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/hearths_2.png</File>
@@ -34,6 +35,7 @@
     <File>C:/Users/Adam Ayash/Desktop/Game_Engine/Game_Engine/Content/Assets/UI/PlayerHealth/heaths_5.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
